@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="mywbsite.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" defer>
+      import {
+        animate,
+        scroll,
+        spring,
+      } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
+      let count = 0;
+      scroll((progress) => console.log(progress));
+      const animation = animate(
+        "div",
+        { transform: ["none", "rotate(3600deg)"] },
+        { ease: "linear" }
+      );
+
+      scroll(animation);
+      function doAnimation() {
+        animate("#box", { rotate: 360 });
+        // if (count % 2 == 0) {
+        //   animate("div", { opacity: 1 }, { duration: 1 });
+        // } else {
+        //   animate("div", { opacity: 0.5 }, { duration: 1 });
+        // }
+        // animate("div", { opacity: 0.5 }, { duration: 1 });
+      }
+      document.querySelectorAll("div").forEach((div) =>
+        div.addEventListener("click", (e) => {
+          console.log("clicked", e.target.className);
+          if (e.target.className) {
+            doAnimation();
+          }
+          // console.log(
+          //   "clicked",
+          //   e.target.nodeName,
+          //   e.target.parentNode.nodeName,
+          //   e.target.parentNode.parentNode.nodeName,
+          //   e.target.parentNode.parentNode.parentNode.nodeName
+          // );
+          // let currentNode = e.target;
+          // while (currentNode) {
+          //   if (currentNode.nodeName == "BODY") {
+          //     break;
+          //   }
+          //   console.log(currentNode.nodeName);
+          //   currentNode = currentNode.parentNode;
+          // }
+
+          count++;
+          doAnimation();
+        })
+      );
+
+      // animate(".box", { rotate: 360 });
+    </script>
+  </head>
+  <body>
+    <div class="flex-container2"></div>
+    <div class="topDiv">
+      <p class="toDivp">Top Div</p>
+    </div>
+    <button class="btn w-64 rounded-full">Button</button>
+
+    <div class="grid-container">
+      <div class="myHeader">
+        <p class="box" id="box">my temp Header</p>
+      </div>
+
+      <div class="mytempLeft"><p>my temp Left</p></div>
+      <div class="mytempMiddle"><p>my temp Middle</p></div>
+      <div class="mytempRight"><p>my temp Right</p></div>
+
+      <div class="myFoooter">
+        <p>my temp Footer</p>
+      </div>
+    </div>
+    <header>
+      <p class="myptag">this is Header</p>
+    </header>
+    <div class="flex-container">
+      <!-- <div class="internalDivs"> -->
+      <div style="flex-grow: 1" class="internalDivs">
+        <p>This is left side Div</p>
+        <p>This is left side Div</p>
+        <p>This is left side Div</p>
+      </div>
+      <div style="flex-grow: 20" class="internalDivs">
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+        <p>This is middle main content</p>
+      </div>
+      <div style="flex-grow: 1" class="internalDivs">
+        <p>This is Right Side Div</p>
+      </div>
+      <!-- </div> -->
+      <!-- <p id="test1">This is my test element1</p>
+      <p id="test2">This is my test element2</p>
+      <div id="testDiv1"></div>
+      <div id="testDiv2"></div> -->
+    </div>
+    <footer>This is a Footer</footer>
+  </body>
+</html>
