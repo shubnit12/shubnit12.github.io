@@ -9,45 +9,7 @@
     />
     <title>Shubnit's Page</title>
   
-    <script defer>
-      console.log("pp/pp.js");
-var w = window.innerWidth;
-var h = window.innerHeight;
-console.log("w: " + w + ", h: " + h);
-
-var links = document.querySelectorAll("a");
-links.forEach(function (link) {
-  link.setAttribute("target", "_blank");
-});
-
-window.onclick = function (event) {
-  //   console.log(event.target);
-};
-
-var modal = document.getElementById("myModal");
-
-var btn = document.querySelector(".contactButton");
-
-btn.onclick = function () {
-  modal.style.display = "flex";
-};
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-let contactSubmitButton = document.querySelector(".contactSubmitButton");
-contactSubmitButton.onclick = function () {
-  modal.style.display = "none";
-  //ToDO: Logic of sending mail
-  console.log("ToDO: Logic of sending mail");
-  window.location = "mailto:xyz@yourapplicationdomain.com";
-};
-
-    </script>
-
+    
     <style>
       * {
   font-family: Monospace;
@@ -327,5 +289,44 @@ footer {
         </button>
       </div>
     </div>
+    <script>
+      console.log("pp/pp.js");
+var w = window.innerWidth;
+var h = window.innerHeight;
+console.log("w: " + w + ", h: " + h);
+
+var links = document.querySelectorAll("a");
+links.forEach(function (link) {
+  link.setAttribute("target", "_blank");
+});
+
+window.onclick = function (event) {
+  //   console.log(event.target);
+};
+
+var modal = document.getElementById("myModal");
+
+var btn = document.querySelector(".contactButton");
+
+btn.onclick = function () {
+  modal.style.display = "flex";
+};
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+let contactSubmitButton = document.querySelector(".contactSubmitButton");
+contactSubmitButton.onclick = function () {
+  modal.style.display = "none";
+  //ToDO: Logic of sending mail
+  console.log("ToDO: Logic of sending mail");
+  window.location = "mailto:xyz@yourapplicationdomain.com";
+};
+
+    </script>
+
   </body>
 </html>
