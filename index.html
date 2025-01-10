@@ -8,184 +8,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <title>Shubnit's Page</title>
-  
-    
-    <style>
-      * {
-  font-family: Monospace;
-  box-sizing: border-box;
-}
-.flexContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.leftSide {
-  border: 2px;
-  border-style: dashed;
-  /* background-color: bisque; */
-  flex-grow: 1;
-  flex-basis: 20vw;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.leftSide > img {
-  border-radius: 50%;
-  width: 50%;
-  height: auto;
-}
-.socials {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.socials > a {
-  margin: 10px;
-  padding: 15px;
-  font-size: 20px;
-  border-radius: 50%;
-  text-decoration: none;
-  height: auto;
-  width: auto;
-  color: white;
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 70%;
-}
-.modal-content * {
-  margin-bottom: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-radius: 10px;
-}
-a:visited {
-  color: white;
-}
-.mainContent {
-  border: 2px;
-  border-style: dashed;
-  background-color: rgb(192, 156, 112);
-  flex-grow: 13;
-}
-.rightSide {
-  border: 2px;
-  border-style: dashed;
-  background-color: bisque;
-  flex-grow: 1;
-  flex-basis: 20vw;
-}
-.flexContainerFooter {
-  margin-top: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-footer {
-  border-top-style: dotted;
-}
-.flexContainerArticle {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.flexContainerArticle > p {
-  align-self: center;
-  margin-top: 0px;
-  max-width: 50vw;
-  margin-left: 5%;
-  margin-right: 3%;
-}
-
-/* ContactButton CSS Start */
-.contactButton {
-  border-radius: 10px;
-  background-color: #3b190f;
-  box-shadow: 0 3px #dbd8d8;
-  width: 50%;
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  font-size: 15px;
-  padding: 2px;
-  width: 80%px;
-  transition: all 0.3s;
-  cursor: pointer;
-  margin: 2px;
-}
-.contactSubmitButton {
-  width: 100%;
-  color: #fbfbfb;
-  background-color: rgb(99, 122, 122);
-}
-
-.contactButton span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.3s;
-}
-.contactButton:active {
-  background-color: #3b190f;
-  box-shadow: 0 1px #c4c3c3;
-  transform: translateY(4px);
-}
-
-.contactButton span:after {
-  content: "\00bb";
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.3s;
-}
-
-.contactButton:hover span {
-  padding-right: 25px;
-}
-
-.contactButton:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-/* ContactButton CSS Ends */
-
-@media (max-width: 700px) {
-  .leftSide,
-  .rightSide,
-  .mainContent {
-    flex: 100%;
-  }
-  .flexContainerArticle > p {
-    max-width: 100vw;
-  }
-}
-
-    </style>
+    <script src="pp.js" defer></script>
+    <link rel="stylesheet" href="pp.css" />
   </head>
   <body>
     <!-- <header></header> -->
@@ -236,10 +60,15 @@ footer {
 
         <h2 id="articleHeadings">About Me</h2>
         <p>
-          this is a p about me this is a p about methis is a p about methis is a
-          p about methis is a p about methis is a p about methis is a p about
-          methis is a p about methis is a p about methis is a p about methis is
-          a p about methis is a p about mevxxx
+          Hello! I’m a Computer Science graduate specializing in the MERN stack
+          with a knack for building dynamic applications. Over the past 2 years,
+          I've developed my skills in creating engaging user interfaces with
+          React and robust RESTful APIs using Express.js, alongside managing
+          databases with MongoDB.<br /><br />
+          If you’re looking for someone who blends technical expertise with
+          creativity and unbridled enthusiasm, I’m your coder! Ready to tackle
+          challenges, innovate, and transform projects, I can’t wait to
+          collaborate and create something revolutionary together!
         </p>
 
         <h2 id="articleHeadings">Personal Projects</h2>
@@ -254,17 +83,26 @@ footer {
         <p>
           this is a p about me this is a p about methis is a p about methis is a
           p about methis is a p about methis is a p about methis is a p about
-          methis is a p about methis is a p about methis is a p about methis is
+          methis is a p about methis is a p about methis is a p about methi/s is
           a p about methis is a p about mevxxx
         </p>
       </main>
       <section class="rightSide">
-        ---------------------This is right Side---------------------
-        <p>this is p</p>
-        <p>this is p</p>
-        <p>this is p</p>
-        <p>this is p</p>
-        <p>this is p</p>
+        <ul id="skillsImages">
+          <li>
+            Languages , libraries & Frameworks: ReactJS, NodeJS, Express,
+            JavaScript, HTML/CSS
+          </li>
+
+          <li>
+            Tools & Technologies: Jenkins, Git, Playwright, AWS, CI/CD, Visual
+            Studio Code, Splunk
+          </li>
+
+          <li>Databases: MongoDB, mySQL</li>
+
+          <li>Operating Systems: Unix(macOS), Windows</li>
+        </ul>
       </section>
     </div>
 
@@ -287,55 +125,19 @@ footer {
         <button class="contactSubmitButton" type="submit">
           <span>Send</span>
         </button>
-          <h2 class="orLine">------------------OR------------------</h2>
+        <h2 class="orLine">OR</h2>
         <button class="contactSubmitButtonMail" type="submit">
           <span>Send Message Through Mail App</span>
         </button>
       </div>
-    </div><script>
-console.log("pp/pp.js");
-var w = window.innerWidth;
-var h = window.innerHeight;
-console.log("w: " + w + ", h: " + h);
-
-var links = document.querySelectorAll("a");
-links.forEach(function (link) {
-  link.setAttribute("target", "_blank");
-});
-
-window.onclick = function (event) {
-  //   console.log(event.target);
-};
-
-var modal = document.getElementById("myModal");
-
-var btn = document.querySelector(".contactButton");
-
-btn.onclick = function () {
-  modal.style.display = "flex";
-};
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-let contactSubmitButton = document.querySelector(".contactSubmitButton");
-contactSubmitButton.onclick = function () {
-  modal.style.display = "none";
-  console.log("do backnd stuff to send mail");
-  //   window.location = "mailto:shubnit99@gmail.com";
-};
-
-let contactSubmitButtonMail = document.querySelector(
-  ".contactSubmitButtonMail"
-);
-contactSubmitButtonMail.onclick = function () {
-  modal.style.display = "none";
-  window.location =
-    "mailto:shubnit99@gmail.com?Subject=Hello, I am on your website and ...";
-};
-</script>
+    </div>
+    <div class="successEmailAlert"><p>Success! Email Sent.</p></div>
+    <div class="errorEmailAlert">
+      <p>Error! Email not Sent. Try Through Mail App</p>
+    </div>
+    <div class="currentPercent">
+      <div class="innerCurrentPercentage"></div>
+    </div>
+    <div></div>
   </body>
 </html>
