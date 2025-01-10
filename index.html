@@ -8,8 +8,253 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <title>Shubnit's Page</title>
-    <script src="pp.js" defer></script>
-    <link rel="stylesheet" href="pp.css" />
+    <style>
+      * {
+  font-family: Monospace;
+  box-sizing: border-box;
+}
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.leftSide {
+  border: 2px;
+  border-style: dashed;
+  /* background-color: bisque; */
+  flex-grow: 1;
+  flex-basis: 20vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.leftSide > img {
+  border-radius: 50%;
+  width: 50%;
+  height: auto;
+}
+.socials {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.socials > a {
+  margin: 10px;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  text-decoration: none;
+  height: auto;
+  width: auto;
+  color: white;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 70%;
+}
+.modal-content * {
+  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 10px;
+}
+.orLine {
+  margin: auto;
+  display: block;
+}
+a:visited {
+  color: white;
+}
+.mainContent {
+  border: 2px;
+  border-style: dashed;
+  background-color: rgb(192, 156, 112);
+  flex-grow: 13;
+}
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  border: 2px;
+  border-style: dashed;
+  background-color: bisque;
+  /* text-align: justify; */
+  flex-grow: 1;
+  flex-basis: 20vw;
+  /* align-items: center; */
+}
+.rightSide > ul {
+  /* padding-right: 20px; */
+  display: flex;
+  flex-direction: row;
+  max-width: 300px;
+}
+.flexContainerFooter {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer {
+  border-top-style: dotted;
+}
+.flexContainerArticle {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.flexContainerArticle > p {
+  align-self: center;
+  text-align: justify;
+  margin-top: 0px;
+  max-width: 50vw;
+  margin-left: 5%;
+  margin-right: 3%;
+}
+
+/* ContactButton CSS Start */
+.contactButton {
+  border-radius: 10px;
+  background-color: #3b190f;
+  box-shadow: 0 3px #dbd8d8;
+  width: 50%;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 15px;
+  padding: 2px;
+  width: 80%px;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 2px;
+}
+.contactSubmitButton {
+  width: 100%;
+  color: #fbfbfb;
+  background-color: rgb(99, 122, 122);
+}
+
+.contactButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.contactButton:active {
+  background-color: #3b190f;
+  box-shadow: 0 1px #c4c3c3;
+  transform: translateY(4px);
+}
+
+.contactButton span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.3s;
+}
+
+.contactButton:hover span {
+  padding-right: 25px;
+}
+
+.contactButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/* ContactButton CSS Ends */
+
+.successEmailAlert {
+  display: none; /*display: none;*/
+  position: sticky;
+  bottom: 0;
+  background-color: rgb(98, 206, 98);
+  border-radius: 5px;
+  font-size: large;
+  opacity: 0; /* opacity: 0;*/
+  transition: opacity 2s;
+}
+.successEmailAlert > p {
+  text-align: center;
+  padding: 10px;
+}
+.errorEmailAlert {
+  display: none;
+  position: sticky;
+  bottom: 0;
+  background-color: rgb(221, 86, 86);
+  border-radius: 5px;
+  font-size: large;
+  opacity: 0;
+  transition: opacity 2s;
+}
+.errorEmailAlert > p {
+  text-align: center;
+  font-size: large;
+  text-align: center;
+  padding: 10px;
+}
+.currentPercent {
+  background-color: #000000;
+  color: #fbfbfb;
+  text-align: center;
+  width: 80%;
+  border-radius: 5px;
+  height: 3vh;
+}
+.currentPercent > p {
+  color: rgb(255, 255, 255);
+  position: relative;
+  bottom: 3.7vh;
+}
+.innerCurrentPercentage {
+  background-color: rgb(218, 176, 209);
+  border-radius: 5px;
+  height: 3vh;
+}
+.techLogos > * {
+  width: 3vw;
+}
+.toBelarger > * {
+  width: 7vw;
+}
+
+@media (max-width: 700px) {
+  .leftSide,
+  .rightSide,
+  .mainContent {
+    flex: 100%;
+  }
+  .flexContainerArticle > p {
+    max-width: 100vw;
+  }
+}
+    </style>
   </head>
   <body>
     <!-- <header></header> -->
@@ -139,5 +384,162 @@
       <div class="innerCurrentPercentage"></div>
     </div>
     <div></div>
+    <script>
+      console.log("pp/pp.js");
+var w = window.innerWidth;
+var h = window.innerHeight;
+console.log("w: " + w + ", h: " + h);
+
+var links = document.querySelectorAll("a");
+links.forEach(function (link) {
+  link.setAttribute("target", "_blank");
+});
+
+window.onclick = function (event) {
+  //   console.log(event.target);
+};
+
+var modal = document.getElementById("myModal");
+
+var btn = document.querySelector(".contactButton");
+
+btn.onclick = function () {
+  modal.style.display = "flex";
+};
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+let successEmailAlert = document.querySelector(".successEmailAlert");
+let errorEmailAlert = document.querySelector(".errorEmailAlert");
+
+let contactSubmitButton = document.querySelector(".contactSubmitButton");
+contactSubmitButton.onclick = function () {
+  modal.style.display = "none";
+  console.log("do backnd stuff to send mail");
+
+  //   window.location = "mailto:shubnit99@gmail.com";
+
+  successEmailAlert.style.display = "block";
+  setTimeout(() => {
+    successEmailAlert.style.opacity = "1";
+    setTimeout(() => {
+      successEmailAlert.style.opacity = "0";
+      setTimeout(() => {
+        successEmailAlert.style.display = "none";
+      }, 6000);
+    }, 3000);
+  }, 500);
+
+  errorEmailAlert.style.display = "block";
+  setTimeout(() => {
+    errorEmailAlert.style.opacity = "1";
+    setTimeout(() => {
+      errorEmailAlert.style.opacity = "0";
+      setTimeout(() => {
+        errorEmailAlert.style.display = "none";
+      }, 6000);
+    }, 3000);
+  }, 500);
+};
+
+let contactSubmitButtonMail = document.querySelector(
+  ".contactSubmitButtonMail"
+);
+contactSubmitButtonMail.onclick = function () {
+  modal.style.display = "none";
+  window.location =
+    "mailto:shubnit99@gmail.com?Subject=Hello, I am on your website and ...";
+};
+
+const startOf2025 = new Date("January 1, 2025 00:00:00").getTime();
+const total2025 = new Date("December 31, 2025 23:59:59").getTime();
+
+let totalMSin2025 = total2025 - startOf2025;
+
+let pTag = document.createElement("p");
+const currentPercent = document.querySelector(".currentPercent");
+currentPercent.appendChild(pTag);
+let progressBar = document.querySelector(".innerCurrentPercentage");
+// pTag.innerText = ratiocompleted;
+function percentageCalc() {
+  let timeElapsed = new Date() - startOf2025;
+  let ratiocompleted = timeElapsed / totalMSin2025;
+  let percentage = (ratiocompleted * 100).toFixed(12);
+
+  pTag.innerText = percentage;
+  progressBar.style.width = percentage + "%";
+  requestAnimationFrame(percentageCalc);
+}
+requestAnimationFrame(percentageCalc);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const skillImages = [
+    {
+      src: "../techLogos/1_OYpEW3PMltGC2MVvJ-5QTw.webp",
+      alt: "Mongoose",
+      name: "Mongoose",
+    },
+    {
+      src: "../techLogos/Expressjs.png",
+      alt: "Express.js",
+      name: "Express.js",
+    },
+    {
+      src: "../techLogos/Jenkins_logo_with_title.svg.png",
+      alt: "Jenkins",
+      name: "Jenkins",
+    },
+    {
+      src: "../techLogos/MongoDB_Fores-Green.svg",
+      alt: "MongoDB",
+      name: "MongoDB",
+    },
+    {
+      src: "../techLogos/Playwright_Logo.svg.png",
+      alt: "Playwright",
+      name: "Playwright",
+    },
+    { src: "../techLogos/Git-logo.svg.png", alt: "Git", name: "Git" },
+    { src: "../techLogos/React_Logo_SVG.svg.png", alt: "React", name: "React" },
+    { src: "../techLogos/Node.js_logo.png", alt: "Node.js", name: "Node.js" },
+    {
+      src: "../techLogos/JavaScript-logo.png",
+      alt: "JavaScript",
+      name: "JavaScript",
+    },
+    {
+      src: "../techLogos/Html5_css3_styling.svg",
+      alt: "HTML/CSS",
+      name: "HTML/CSS",
+    },
+    {
+      src: "../techLogos/Amazon_Web_Services_Logo.svg.png",
+      alt: "AWS",
+      name: "AWS",
+    },
+  ];
+  const skillsContainer = document.getElementById("skillsImages");
+  skillImages.forEach((skill) => {
+    const skillWrapper = document.createElement("div");
+    skillWrapper.classList.add("skill");
+
+    const img = document.createElement("img");
+    img.src = skill.src;
+    img.alt = skill.alt;
+    img.style.width = "5vw";
+
+    const label = document.createElement("p"); // Create a paragraph element for the name
+    label.textContent = skill.name; // Set the text to the skill name
+    label.classList.add("skill-label"); // Optional: add a class for styling
+
+    skillWrapper.appendChild(img);
+    skillWrapper.appendChild(label); // Append the label under the image
+    skillsContainer.appendChild(skillWrapper); // Append the whole wrapper to the container
+  });
+});
+    </script>
   </body>
 </html>
