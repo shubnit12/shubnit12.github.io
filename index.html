@@ -11,12 +11,19 @@
     <style>
 
 
+
 * {
   font-family: Monospace;
   box-sizing: border-box;
   border-radius: 6px;
+}
+p {
+  color: #000000;
+  transition: color 2s;
+}
+body {
   background-color: #e2e4e9;
-  color: #363c49;
+  transition: background-color 2s;
 }
 .flexContainer {
   display: flex;
@@ -36,7 +43,7 @@
 }
 .fixedProfile {
   position: fixed; /* Use absolute positioning */
-  top: 50%; /* Center vertically */
+  top: 40%; /* Center vertically */
   left: 0; /* Align with the left edge */
   transform: translateY(-50%); /* Adjust for vertical centering */
   width: 25vw; /* Match the width of leftSide */
@@ -125,7 +132,7 @@ a:visited {
 }
 .fixedSkills {
   position: fixed; /* Use absolute positioning */
-  top: 50%; /* Center vertically */
+  top: 40%; /* Center vertically */
   right: 0; /* Align with the left edge */
   transform: translateY(-50%); /* Adjust for vertical centering */
   width: 25vw; /* Match the width of leftSide */
@@ -153,8 +160,10 @@ footer {
   background-color: #c4c3c3;
   border-top: #c4c9d4;
   border-style: solid;
+  transition: color 2s, background-color 2s;
 }
 .flexContainerArticle {
+  margin-top: 1vh;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -173,15 +182,15 @@ footer {
 /* ContactButton CSS Start */
 .contactButton {
   border-radius: 10px;
-  /* background-color: #3b190f; */
+  background-color: #2b3137;
   box-shadow: 0 3px #dbd8d8;
   width: 50%;
   border: none;
-  color: #ffffff;
+
   text-align: center;
   font-size: 15px;
   padding: 2px;
-  width: 80%px;
+  width: 80%;
   transition: all 0.3s;
   cursor: pointer;
   margin: 2px;
@@ -193,6 +202,7 @@ footer {
 }
 
 .contactButton span {
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -224,28 +234,31 @@ footer {
 /* ContactButton CSS Ends */
 
 .successEmailAlert {
-  display: block; /*display: none;*/
+  display: none;
   position: sticky;
   bottom: 0;
-  background-color: #3c903e;
+  background-color: #00ff04;
   border-radius: 5px;
   font-size: large;
-  opacity: 0; /* opacity: 0;*/
+  opacity: 0;
   transition: opacity 2s;
-  color: ;
+  color: red;
+  z-index: 15;
 }
 .successEmailAlert > p {
   text-align: center;
   padding: 10px;
+  z-index: 15;
 }
 .errorEmailAlert {
-  display: block;
   position: sticky;
   bottom: 0;
   background-color: #b42818;
   border-radius: 5px;
   font-size: large;
   opacity: 0;
+  z-index: 15;
+  display: none;
   transition: opacity 2s;
 }
 .errorEmailAlert > p {
@@ -253,28 +266,29 @@ footer {
   font-size: large;
   text-align: center;
   padding: 10px;
+  z-index: 15;
 }
 .currentPercent {
-  background-color: #000000;
+  background-color: #9db2bf;
   color: #fbfbfb;
   text-align: center;
   width: 100%;
   border-radius: 5px;
-  height: 5vh;
+  height: 3vh;
 }
 .currentPercent > p {
   color: rgb(255, 255, 255);
   position: relative;
-  bottom: 3.7vh;
-  z-index: 1;
+  bottom: 2.2vh;
+  z-index: 15;
   display: inline;
   background-color: inherit;
   /* transform: translateX(-50%); */
 }
 .innerCurrentPercentage {
-  background-color: rgb(218, 40, 218);
+  background-color: #526d82;
   border-radius: 5px;
-  height: 5vh;
+  height: 3vh;
   /* width: 20%; */
 }
 .techLogos > * {
@@ -283,7 +297,6 @@ footer {
 .toBelarger > * {
   width: 7vw;
 }
-
 .experienceHeading,
 .personalProjectHeading {
   padding: 5px;
@@ -298,11 +311,44 @@ footer {
   max-width: 50vw;
   margin-left: 5%;
   margin-right: 3%;
+  transition: color 2s, background-color 2s;
 }
 .experienceHeading > *,
 .personalProjectHeading > * {
   background-color: #cfcfcf;
+  transition: color 2s, background-color 2s;
 }
+#element {
+  z-index: 15;
+  background-color: rgb(252, 151, 19);
+  box-shadow: 0px 0px 30px 10px rgb(248, 217, 15);
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  position: absolute;
+  top: 10%;
+  left: 1vw;
+  transition: transform 2s, boxShadow 2s, background-color 2s;
+  transition-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  /* animation-direction: alternate; */
+}
+
+@keyframes ocilate {
+  0% {
+    top: 10%;
+  }
+  50% {
+    top: -5%;
+  }
+  100% {
+    top: 10%;
+  }
+}
+
 @media (max-width: 800px) {
   .leftSide,
   .rightSide,
@@ -333,7 +379,6 @@ footer {
 }
 
 
-
       
 
 
@@ -343,6 +388,9 @@ footer {
   <body>
 
 
+    
+ <span id="element"> </span>
+
     <div class="flexContainer">
 
        <!----------------------------- left Side ------------------------------>
@@ -350,7 +398,7 @@ footer {
       <section class="leftSide">
         <div class="fixedProfile">
         <img
-          src="https://avatarfiles.alphacoders.com/186/186549.jpg"
+          src="https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/13.jpg"
           alt="No profile Picture"
           srcset=""
         />
@@ -523,16 +571,8 @@ footer {
 
 
 
-
-
-
-
-
-
     
     <script>
-
-
 
 console.log("pp/pp.js");
 var w = window.innerWidth;
@@ -624,21 +664,36 @@ function percentageCalc() {
 }
 requestAnimationFrame(percentageCalc);
 
-let Expressjs = "../techLogos/Expressjs.png";
-let JavaScript = "../techLogos/JavaScript.png";
-let Jenkins = "../techLogos/Jenkins.png";
-let MongoDB = "../techLogos/MongoDB.svg";
-let NodeJs = "../techLogos/NodeJs.png";
-let Playwright = "../techLogos/Playwright.png";
-let React = "../techLogos/React.png";
-let aws = "../techLogos/aws.png";
-let css = "../techLogos/css.svg";
-let git = "../techLogos/git.png";
-let html = "../techLogos/html.svg";
-let mongoosewebp = "../techLogos/mongoose.webp";
-let Visual_Studio = "../techLogos/Visual_Studio.png";
-let Windows = "../techLogos/Windows.png";
-let Unix = "../techLogos/UNIX.png";
+let Expressjs =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Expressjs.png";
+let JavaScript =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/JavaScript.png";
+let Jenkins =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Jenkins.png";
+let MongoDB =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/MongoDB.svg";
+let NodeJs =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/NodeJs.png";
+let Playwright =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Playwright.png";
+let React =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/React.png";
+let aws =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/aws.png";
+let css =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/css.svg";
+let git =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/git.png";
+let html =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/html.svg";
+let mongoosewebp =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/mongoose.webp";
+let Visual_Studio =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Visual_Studio.png";
+let Windows =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Windows.png";
+let Unix =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/UNIX.png";
 
 let skillObj = [
   {
@@ -646,30 +701,30 @@ let skillObj = [
     skills: [
       { skillName: "JavaScript", skillImage: JavaScript },
       { skillName: "ReactJs", skillImage: React },
-      { skillName: "", skillImage: NodeJs },
+      { skillName: "NodeJs", skillImage: NodeJs },
       { skillName: "HTML", skillImage: html },
       { skillName: "CSS", skillImage: css },
-      { skillName: "", skillImage: Expressjs },
+      { skillName: "Expressjs", skillImage: Expressjs },
     ],
   },
   {
     skillTitle: "Tools & Technologies",
     skills: [
-      { skillName: "", skillImage: Jenkins },
-      { skillName: "", skillImage: git },
-      { skillName: "", skillImage: Playwright },
-      { skillName: "", skillImage: aws },
+      { skillName: "Jenkins", skillImage: Jenkins },
+      { skillName: "git", skillImage: git },
+      { skillName: "Playwright", skillImage: Playwright },
+      { skillName: "aws", skillImage: aws },
       { skillName: "VSCode", skillImage: Visual_Studio },
     ],
   },
   {
     skillTitle: "Databases",
-    skills: [{ skillName: "", skillImage: MongoDB }],
+    skills: [{ skillName: "MongoDB", skillImage: MongoDB }],
   },
   {
     skillTitle: "Operating Systems",
     skills: [
-      { skillName: "", skillImage: Unix },
+      { skillName: "Unix", skillImage: Unix },
       { skillName: "Windows", skillImage: Windows },
     ],
   },
@@ -727,19 +782,108 @@ function createSkills() {
 }
 createSkills();
 
+let count = 1;
+const element = document.getElementById("element");
+element.addEventListener("click", () => {
+  if (count % 2 == 0) {
+    pTag.style.color = "#000000";
+    document.querySelectorAll(".individualSkill").forEach((element) => {
+      element.style.color = "#000000";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.color = "#000000";
+      });
+    });
+    document.querySelectorAll(".personalProjectHeading").forEach((element) => {
+      element.style.backgroundColor = "#cfcfcf";
+      element.style.color = "#000000";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.backgroundColor = "#cfcfcf";
+        element.style.color = "#000000";
+      });
+    });
+    document.querySelectorAll(".experienceHeading").forEach((element) => {
+      element.style.backgroundColor = "#cfcfcf";
+      element.style.color = "#000000";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.backgroundColor = "#cfcfcf";
+        element.style.color = "#000000";
+      });
+    });
+    document.querySelectorAll("#articleHeadings").forEach((element) => {
+      element.style.backgroundColor = "#c4c3c3";
+    });
+    document.querySelectorAll(".skillTitle").forEach((element) => {
+      element.style.backgroundColor = "#c4c3c3";
+    });
+    element.style.animationIterationCount = count;
+    element.style.transform = "translateX(1vw) rotate(0deg) ";
+    element.style.animationIterationCount = "1";
+    element.style.animationName = "ocilate";
+
+    element.style.backgroundColor = "rgb(252, 151, 19)";
+    setTimeout(() => {
+      element.style.boxShadow = "0px 0px 30px 10px rgb(248, 217, 15)";
+    }, 1000);
+    document.querySelector("body").style.backgroundColor = "#e2e4e9";
+    document.querySelectorAll("p").forEach((element) => {
+      element.style.color = "#000000";
+    });
+  } else {
+    document.querySelectorAll(".individualSkill").forEach((element) => {
+      element.style.color = "#B6C2CF";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.color = "#B6C2CF";
+      });
+    });
+    document.querySelectorAll(".personalProjectHeading").forEach((element) => {
+      element.style.backgroundColor = "#505050";
+      element.style.color = "#B6C2CF";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.backgroundColor = "#505050";
+        element.style.color = "#B6C2CF";
+      });
+    });
+    document.querySelectorAll(".experienceHeading").forEach((element) => {
+      element.style.backgroundColor = "#505050";
+      element.style.color = "#B6C2CF";
+      element.querySelectorAll("span").forEach((element) => {
+        element.style.backgroundColor = "#505050";
+        element.style.color = "#B6C2CF";
+      });
+    });
+    document.querySelectorAll("#articleHeadings").forEach((element) => {
+      element.style.backgroundColor = "rgb(138 135 135)";
+    });
+    document.querySelectorAll(".skillTitle").forEach((element) => {
+      element.style.backgroundColor = "rgb(138 135 135)";
+    });
+    element.style.animationIterationCount = count;
+    element.style.backgroundColor = "transparent";
+    element.style.transform = "translateX(93vw) rotate(0deg) ";
+    element.style.animationIterationCount = "1";
+    element.style.animationName = "ocilate";
+    setTimeout(() => {
+      element.style.boxShadow = "-11px 11px 0 0 rgb(169, 170, 167)";
+    }, 1000);
+    document.querySelector("body").style.backgroundColor = "#22272B";
+    document.querySelectorAll("p").forEach((element) => {
+      element.style.color = "#B6C2CF";
+    });
+    setTimeout(() => {
+      document.querySelector(".currentPercent").querySelector("p").style.color =
+        "rgb(236 236 236)";
+    }, 2000);
+  }
+  setTimeout(() => {
+    element.style.animationName = "";
+  }, 2000);
+
+  count++;
+});
 const wireframeLink =
   "https://www.canva.com/design/DAGbf8UqK40/_5E2rePDXDMN7j9C8pQxcQ/view?utm_content=DAGbf8UqK40&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h14f02ca3c0";
 
 
-
-
-
-
-
-
-
-
-      
     </script>
   </body>
 </html>
