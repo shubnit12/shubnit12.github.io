@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Shubnit's Page</title>
+    <script src="pp.js" defer></script>
+    <link rel="stylesheet" href="pp.css" />
+  </head>
+  <body>
+    <span id="element"> </span>
+
+    <div class="flexContainer">
+
+       <!----------------------------- left Side ------------------------------>
+
+      <section class="leftSide">
+        <div class="fixedProfile">
+        <img
+          src="https://avatarfiles.alphacoders.com/186/186549.jpg"
+          alt="No profile Picture"
+          srcset=""
+        />
+        <div class="socials">
+          <a
+            style="background: #2b3137"
+            href="https://github.com/shubnit12"
+            class="fa fa-github"
+          ></a>
+          <a
+            style="background: #2b3137"
+            href="https://www.linkedin.com/in/shubnit-singh-605241124/"
+            class="fa fa-linkedin"
+          ></a>
+          <a
+            style="background: #2b3137"
+            href="https://www.instagram.com/shubnit12/"
+            class="fa fa-instagram"
+          ></a>
+
+          <a
+            style="background: #2b3137"
+            href="https://x.com/shubnit12"
+            class="fa fa-twitter"
+          ></a>
+          <a
+            style="background: #2b3137"
+            href="https://www.reddit.com/user/Crazy_Ad_6998/"
+            class="fa fa-reddit"
+          ></a>
+          <a
+            style="background: #2b3137; width: 49px; height: 49px"
+            href="https://www.facebook.com/shubnit12/"
+            class="fa fa-facebook"
+          ></a>
+        </div>
+        <button class="contactButton"><span>Contact</span></button>
+        </div>
+
+      </section>
+
+       <!-----------------------------  Middle -------------------------------->
+
+      <main class="flexContainerArticle">
+        <h2 id="articleHeadings">About Me</h2>
+        <p>
+          Hello! I’m a Computer Science graduate specializing in the MERN stack
+          with a knack for building dynamic applications. Over the past 2 years,
+          I've developed my skills in creating engaging user interfaces with
+          React and robust RESTful APIs using Express.js, alongside managing
+          databases with MongoDB.<br /><br />
+          If you’re looking for someone who blends technical expertise with
+          creativity and unbridled enthusiasm, I’m your coder! Ready to tackle
+          challenges, innovate, and transform projects, I can’t wait to
+          collaborate and create something revolutionary together!
+        </p>
+
+        <h2 id="articleHeadings">Personal Projects</h2>
+               <div class="personalProjectHeading">
+          <span>Porfolio Website </span
+          ><span>Made Purely in HTML,CSS ad JS</span
+          ><span>Hosted Here</span>
+        </div>
+        <p>
+          This is a Personal portfolio Website (This Website that you are currently on)<br>
+          Everything that you see here is done from the scratch.<br> 
+          Like creating wireframe, icons, buttons, animations, overlay<br>
+          Cool Feature it has is a progress bar that shows how percentage of this year is completed<br>
+        </p>
+        <p>ToDo's<br>
+        >create a dark mode<br>
+        >create a server from scratch to host the backnd of this website to serve images and send email<br>
+        >Add a section for projects<br>
+        </p>
+
+        <h2 id="articleHeadings">Professional Experience</h2>
+        <div class="experienceHeading">
+          <span>Cognizant Technology Solutions </span
+          ><span>Jr. Software Engineer | Gurugram</span
+          ><span>Dec 2022 - Till now</span>
+        </div>
+
+        <p>
+          • Developed and maintained RESTful APIs using Express.js in Node.js,
+          ensuring robust and efficient data handling for web applications.<br /><br />
+          • Established connections to MongoDB databases, performing critical
+          CRUD operations while implementing data validation, sanitization, and
+          error-checking before data insertion.<br /><br />
+          • Executed data migration tasks in React.js, integrating new
+          functionalities and enhancing user experience on the front end.<br /><br />
+          • Designed and implemented dynamic, responsive user interfaces using
+          React, adhering to best practices for code quality and performance.<br /><br />
+          • Automated UI testing with Playwright, achieving a 50% reduction in
+          manual testing time and increasing deployment frequency by 20% while
+          ensuring high-quality software releases.<br /><br />
+        </p>
+        <div class="experienceHeading">
+          <span>Cognizant Technology Solutions </span
+          ><span>Jr. Software Engineer | Gurugram</span
+          ><span>Oct 2022 – Dec 2022</span>
+        </div>
+
+        <p>
+        <p>
+          • Developed SQL and PL/SQL expertise for effective database management
+          and complex query resolutions..<br /><br />
+          • Enhanced proficiency in C++ programming and Unix operating
+          systems.<br /><br />
+          • Designed and developed a Student Report Card Generator application,
+          illustrating the ability to turn academic concepts into practical
+          software applications.<br /><br />
+        </p>
+        </p>
+      </main>
+
+       <!----------------------------- Right Side ------------------------------>
+
+      <section class="rightSide">
+        <div class="fixedSkills">
+
+        </div>
+       <!------------------------------ Data inputted via JS--------------------->
+
+      </section>
+    </div>
+
+       <!------------------------------- Footer ---------------------------------->
+
+    <div class="currentPercent">
+      <div class="innerCurrentPercentage"></div>
+    </div>
+    <footer class="flexContainerFooter">
+      <p id="footerText">Made in HTML, CSS and JS</p>
+    </footer>
+
+       <!--------------------------------- Modal ---------------------------------->
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <input id="nameInput" type="text" placeholder="Your Name -- Optional" />
+        <input
+          id="emailInput"
+          type="text"
+          placeholder="Your Email -- Optional"
+        />
+        <input
+          id="messageInput"
+          type="text"
+          placeholder="Your Message -- Important"
+        />
+        <button class="contactSubmitButton" type="submit">
+          <span>Send</span>
+        </button>
+        <h2 class="orLine">OR</h2>
+        <button class="contactSubmitButtonMail" type="submit">
+          <span>Send Message Through Mail App</span>
+        </button>
+      </div>
+    </div>
+
+       <!----------------------------------Alerts----------------------------------->
+    <div class="successEmailAlert"><p>Success! Email Sent.</p></div>
+    <div class="errorEmailAlert">
+      <p>Error! Email not Sent. Try Through Mail App</p>
+    </div>
+
+  </body>
+</html>
