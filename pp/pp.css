@@ -1,0 +1,365 @@
+* {
+  font-family: Monospace;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+p {
+  color: #000000;
+  transition: color 2s;
+}
+body {
+  background-color: #e2e4e9;
+  transition: background-color 2s;
+}
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.leftSide {
+  border: 2px;
+  /* background-color: rgb(255, 255, 255); */
+  position: relative; /* Make this a positioned ancestor */
+  width: 20vw;
+  flex-grow: 1;
+  flex-basis: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fixedProfile {
+  position: fixed; /* Use absolute positioning */
+  top: 40%; /* Center vertically */
+  left: 0; /* Align with the left edge */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  width: 25vw; /* Match the width of leftSide */
+  z-index: 0;
+
+  /* border: 2px; */
+  /* border-style: dashed; */
+  /* background-color: rgb(255, 255, 255); */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.leftSide > div > img {
+  border-radius: 50%;
+  width: 50%;
+  height: auto;
+}
+.socials {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.socials > a {
+  margin: 10px;
+  padding: 15px;
+  font-size: 20px;
+  border-radius: 50%;
+  text-decoration: none;
+  height: auto;
+  width: auto;
+  color: white;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #e2e4e9;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #e2e4e9;
+  border-radius: 10px;
+  width: 70%;
+}
+.modal-content * {
+  margin-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 10px;
+}
+.orLine {
+  margin: auto;
+  display: block;
+}
+a:visited {
+  color: white;
+}
+.mainContent {
+  border: 2px;
+  border-style: dashed;
+  /* background-color: rgb(192, 156, 112); */
+  flex-grow: 13;
+}
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  flex-grow: 1;
+  flex-basis: 20vw;
+}
+.fixedSkills {
+  position: fixed; /* Use absolute positioning */
+  top: 40%; /* Center vertically */
+  right: 0; /* Align with the left edge */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  width: 25vw; /* Match the width of leftSide */
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rightSide > ul {
+  /* padding-right: 20px; */
+  display: flex;
+  flex-direction: row;
+  max-width: 300px;
+}
+.flexContainerFooter {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer {
+  border-top-style: dotted;
+}
+#articleHeadings {
+  background-color: #c4c3c3;
+  border-top: #c4c9d4;
+  border-style: solid;
+  transition: color 2s, background-color 2s;
+}
+.flexContainerArticle {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.flexContainerArticle > p {
+  align-self: center;
+  text-align: justify;
+  /* background-color: #f0efef; */
+  padding: 5px;
+  margin-top: 0px;
+  max-width: 50vw;
+  margin-left: 5%;
+  margin-right: 3%;
+}
+
+/* ContactButton CSS Start */
+.contactButton {
+  border-radius: 10px;
+  background-color: #2b3137;
+  box-shadow: 0 3px #dbd8d8;
+  width: 50%;
+  border: none;
+
+  text-align: center;
+  font-size: 15px;
+  padding: 2px;
+  width: 80%;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin: 2px;
+}
+.contactSubmitButton {
+  width: 100%;
+  color: #fbfbfb;
+  /* background-color: rgb(99, 122, 122); */
+}
+
+.contactButton span {
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.3s;
+}
+.contactButton:active {
+  /* background-color: #3b190f; */
+  box-shadow: 0 1px #c4c3c3;
+  transform: translateY(4px);
+}
+
+.contactButton span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.3s;
+}
+
+.contactButton:hover span {
+  padding-right: 25px;
+}
+
+.contactButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/* ContactButton CSS Ends */
+
+.successEmailAlert {
+  display: none;
+  position: sticky;
+  bottom: 0;
+  background-color: #00ff04;
+  border-radius: 5px;
+  font-size: large;
+  opacity: 0;
+  transition: opacity 2s;
+  color: red;
+  z-index: 15;
+}
+.successEmailAlert > p {
+  text-align: center;
+  padding: 10px;
+  z-index: 15;
+}
+.errorEmailAlert {
+  position: sticky;
+  bottom: 0;
+  background-color: #b42818;
+  border-radius: 5px;
+  font-size: large;
+  opacity: 0;
+  z-index: 15;
+  display: none;
+  transition: opacity 2s;
+}
+.errorEmailAlert > p {
+  text-align: center;
+  font-size: large;
+  text-align: center;
+  padding: 10px;
+  z-index: 15;
+}
+.currentPercent {
+  background-color: #9db2bf;
+  color: #fbfbfb;
+  text-align: center;
+  width: 100%;
+  border-radius: 5px;
+  height: 3vh;
+}
+.currentPercent > p {
+  color: rgb(255, 255, 255);
+  position: relative;
+  bottom: 2.2vh;
+  z-index: 15;
+  display: inline;
+  background-color: inherit;
+  /* transform: translateX(-50%); */
+}
+.innerCurrentPercentage {
+  background-color: #526d82;
+  border-radius: 5px;
+  height: 3vh;
+  /* width: 20%; */
+}
+.techLogos > * {
+  width: 3vw;
+}
+.toBelarger > * {
+  width: 7vw;
+}
+.experienceHeading,
+.personalProjectHeading {
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: #cfcfcf;
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  max-width: 50vw;
+  margin-left: 5%;
+  margin-right: 3%;
+  transition: color 2s, background-color 2s;
+}
+.experienceHeading > *,
+.personalProjectHeading > * {
+  background-color: #cfcfcf;
+  transition: color 2s, background-color 2s;
+}
+#element {
+  z-index: 15;
+  background-color: rgb(252, 151, 19);
+  box-shadow: 0px 0px 30px 10px rgb(248, 217, 15);
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  position: absolute;
+  top: 10%;
+  left: 1vw;
+  transition: transform 2s, boxShadow 2s, background-color 2s;
+  transition-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  /* animation-direction: alternate; */
+}
+
+@keyframes ocilate {
+  0% {
+    top: 10%;
+  }
+  50% {
+    top: -5%;
+  }
+  100% {
+    top: 10%;
+  }
+}
+
+@media (max-width: 800px) {
+  .leftSide,
+  .rightSide,
+  .mainContent {
+    flex: 100%;
+  }
+  .flexContainerArticle > p {
+    max-width: 100vw;
+  }
+  .experienceHeading,
+  .personalProjectHeading {
+    max-width: 100vw;
+  }
+  .fixedProfile {
+    position: static; /* Use absolute positioning */
+    top: 0%; /* Center vertically */
+    left: 0; /* Align with the left edge */
+    transform: translateY(0); /* Adjust for vertical centering */
+    width: 100%; /* Match the width of leftSide */
+  }
+  .fixedSkills {
+    position: static; /* Use absolute positioning */
+    bottom: 0%; /* Center vertically */
+    left: 0; /* Align with the left edge */
+    transform: translateY(0); /* Adjust for vertical centering */
+    width: 100%; /* Match the width of leftSide */
+  }
+}
