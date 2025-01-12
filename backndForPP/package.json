@@ -1,0 +1,24 @@
+{
+  "name": "backndforpp",
+  "version": "1.0.0",
+  "description": "this is backend for the Personal Portfolio Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubnit12/shubnit12.github.io.git"
+  },
+  "author": "SHUBNIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubnit12/shubnit12.github.io/issues"
+  },
+  "homepage": "https://github.com/shubnit12/shubnit12.github.io#readme",
+  "dependencies": {
+    "http": "*",
+    "https": "^1.0.0",
+    "node": "^22.13.0"
+  }
+}
