@@ -348,7 +348,11 @@ footer {
     top: 10%;
   }
 }
-
+#progressBarHover:hover {
+  cursor: pointer;
+  background-color: #858585;
+  transition: background-color 0.5s;
+}
 @media (max-width: 800px) {
   .leftSide,
   .rightSide,
@@ -465,13 +469,13 @@ footer {
         <p>
           This is a Personal portfolio Website (This Website that you are currently on)<br>
           Everything that you see here is done from the scratch.<br> 
-          Like creating wireframe, icons, buttons, animations, overlay<br>
-          Cool Feature it has is a progress bar that shows how percentage of this year is completed<br>
+          Like creating wireframe, icons, buttons, animations, overlays<br>
+          Cool Feature it has is a <span id="progressBarHover" onclick='document.querySelector(".innerCurrentPercentage").scrollIntoView(false)' ">progress bar</span>  that shows how much percentage of this year is completed<br>
         </p>
         <p>ToDo's<br>
-        >create a dark mode<br>
+        ><s>create a dark mode</s><br>
         >create a server from scratch to host the backnd of this website to serve images and send email<br>
-        >Add a section for projects<br>
+        ><s>Add a section for projects</s><br>
         </p>
 
         <h2 id="articleHeadings">Professional Experience</h2>
