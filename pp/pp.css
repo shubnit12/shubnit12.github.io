@@ -3,7 +3,7 @@
   box-sizing: border-box;
   border-radius: 6px;
 }
-p {
+p { 
   color: #000000;
   transition: color 2s;
 }
