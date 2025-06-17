@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="pp.css" />
   </head>
   <body>
-    <span id="element"> </span>
+   
+
+    
+ <span id="element"> </span>
 
     <div class="flexContainer">
 
@@ -21,7 +24,7 @@
       <section class="leftSide">
         <div class="fixedProfile">
         <img
-          src="https://avatarfiles.alphacoders.com/186/186549.jpg"
+          src="https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/13.jpg"
           alt="No profile Picture"
           srcset=""
         />
@@ -59,6 +62,7 @@
           ></a>
         </div>
         <button class="contactButton"><span>Contact</span></button>
+        <button class="contactButton downloadResumeButton"><span><a href=http://localhost:3000/Resume download>Download Resume</a></span></button>
         </div>
 
       </section>
@@ -88,13 +92,13 @@
         <p>
           This is a Personal portfolio Website (This Website that you are currently on)<br>
           Everything that you see here is done from the scratch.<br> 
-          Like creating wireframe, icons, buttons, animations, overlay<br>
-          Cool Feature it has is a progress bar that shows how percentage of this year is completed<br>
+          Like creating wireframe, icons, buttons, animations, overlays<br>
+          Cool Feature it has is a <span id="progressBarHover" onclick='document.querySelector(".innerCurrentPercentage").scrollIntoView(false)' ">progress bar</span>  that shows how much percentage of this year is completed<br>
         </p>
         <p>ToDo's<br>
-        >create a dark mode<br>
+        ><s>create a dark mode</s><br>
         >create a server from scratch to host the backnd of this website to serve images and send email<br>
-        >Add a section for projects<br>
+        ><s>Add a section for projects</s><br>
         </p>
 
         <h2 id="articleHeadings">Professional Experience</h2>
@@ -187,6 +191,10 @@
     <div class="errorEmailAlert">
       <p>Error! Email not Sent. Try Through Mail App</p>
     </div>
+    <div class="inputvaluesAlert">
+      <p>Yooo!! Enter all the values</p>
+    </div>
+
 
   </body>
 </html>

@@ -27,35 +27,60 @@ window.onclick = function (event) {
 };
 let successEmailAlert = document.querySelector(".successEmailAlert");
 let errorEmailAlert = document.querySelector(".errorEmailAlert");
+let inputvaluesAlert = document.querySelector(".inputvaluesAlert");
 
 let contactSubmitButton = document.querySelector(".contactSubmitButton");
 contactSubmitButton.onclick = function () {
-  modal.style.display = "none";
-  console.log("do backnd stuff to send mail");
+  let nameInput = document.querySelector("#nameInput");
+  let emailInput = document.querySelector("#emailInput");
+  let messageInput = document.querySelector("#messageInput");
+  if (
+    nameInput.value === "" ||
+    emailInput.value === "" ||
+    messageInput.value === ""
+  ) {
+    inputvaluesAlert.style.display = "block";
+    setTimeout(() => {
+      inputvaluesAlert.style.opacity = "1";
+      setTimeout(() => {
+        inputvaluesAlert.style.opacity = "0";
+        setTimeout(() => {
+          inputvaluesAlert.style.display = "none";
+        }, 6000);
+      }, 3000);
+    }, 500);
+  } else {
+    console.log("sending Data");
+    let isSuccess = true;
+    if (isSuccess) {
+      console.log(" Data Sent Successfully");
+      successEmailAlert.style.display = "block";
+      setTimeout(() => {
+        successEmailAlert.style.opacity = "1";
+        setTimeout(() => {
+          successEmailAlert.style.opacity = "0";
+          setTimeout(() => {
+            successEmailAlert.style.display = "none";
+          }, 6000);
+        }, 3000);
+      }, 500);
+      modal.style.display = "none";
+    } else {
+      console.log(" Data Not Sent Successfully");
+      errorEmailAlert.style.display = "block";
+      setTimeout(() => {
+        errorEmailAlert.style.opacity = "1";
+        setTimeout(() => {
+          errorEmailAlert.style.opacity = "0";
+          setTimeout(() => {
+            errorEmailAlert.style.display = "none";
+          }, 6000);
+        }, 3000);
+      }, 500);
+    }
+  }
 
   //   window.location = "mailto:shubnit99@gmail.com";
-
-  successEmailAlert.style.display = "block";
-  setTimeout(() => {
-    successEmailAlert.style.opacity = "1";
-    setTimeout(() => {
-      successEmailAlert.style.opacity = "0";
-      setTimeout(() => {
-        successEmailAlert.style.display = "none";
-      }, 6000);
-    }, 3000);
-  }, 500);
-
-  errorEmailAlert.style.display = "block";
-  setTimeout(() => {
-    errorEmailAlert.style.opacity = "1";
-    setTimeout(() => {
-      errorEmailAlert.style.opacity = "0";
-      setTimeout(() => {
-        errorEmailAlert.style.display = "none";
-      }, 6000);
-    }, 3000);
-  }, 500);
 };
 
 let contactSubmitButtonMail = document.querySelector(
@@ -64,7 +89,7 @@ let contactSubmitButtonMail = document.querySelector(
 contactSubmitButtonMail.onclick = function () {
   modal.style.display = "none";
   window.location =
-    "mailto:shubnit99@gmail.com?Subject=Hello, I am on your website and ...";
+    "mailto:shubnit12@gmail.com?Subject=Hello, I am on your website and ...";
 };
 
 const startOf2025 = new Date("January 1, 2025 00:00:00").getTime();
@@ -88,21 +113,36 @@ function percentageCalc() {
 }
 requestAnimationFrame(percentageCalc);
 
-let Expressjs = "../techLogos/Expressjs.png";
-let JavaScript = "../techLogos/JavaScript.png";
-let Jenkins = "../techLogos/Jenkins.png";
-let MongoDB = "../techLogos/MongoDB.svg";
-let NodeJs = "../techLogos/NodeJs.png";
-let Playwright = "../techLogos/Playwright.png";
-let React = "../techLogos/React.png";
-let aws = "../techLogos/aws.png";
-let css = "../techLogos/css.svg";
-let git = "../techLogos/git.png";
-let html = "../techLogos/html.svg";
-let mongoosewebp = "../techLogos/mongoose.webp";
-let Visual_Studio = "../techLogos/Visual_Studio.png";
-let Windows = "../techLogos/Windows.png";
-let Unix = "../techLogos/UNIX.png";
+let Expressjs =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Expressjs.png";
+let JavaScript =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/JavaScript.png";
+let Jenkins =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Jenkins.png";
+let MongoDB =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/MongoDB.svg";
+let NodeJs =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/NodeJs.png";
+let Playwright =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Playwright.png";
+let React =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/React.png";
+let aws =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/aws.png";
+let css =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/css.svg";
+let git =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/git.png";
+let html =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/html.svg";
+let mongoosewebp =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/mongoose.webp";
+let Visual_Studio =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Visual_Studio.png";
+let Windows =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Windows.png";
+let Unix =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/UNIX.png";
 
 let skillObj = [
   {
@@ -291,3 +331,9 @@ element.addEventListener("click", () => {
 });
 const wireframeLink =
   "https://www.canva.com/design/DAGbf8UqK40/_5E2rePDXDMN7j9C8pQxcQ/view?utm_content=DAGbf8UqK40&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h14f02ca3c0";
+
+const downloadResumeButton = document.querySelector(".downloadResumeButton");
+
+downloadResumeButton.addEventListener("click", () => {
+  console.log("download clicked");
+});

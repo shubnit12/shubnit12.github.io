@@ -1,7 +1,7 @@
 {
-  "name": "backndforpp",
+  "name": "personalwebsitebackend",
   "version": "1.0.0",
-  "description": "this is backend for the Personal Portfolio Website",
+  "description": "Backend for personalwebsite written in nodejs(express)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,15 +10,16 @@
     "type": "git",
     "url": "git+https://github.com/shubnit12/shubnit12.github.io.git"
   },
-  "author": "SHUBNIT",
+  "author": "Shubnit",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/shubnit12/shubnit12.github.io/issues"
   },
   "homepage": "https://github.com/shubnit12/shubnit12.github.io#readme",
   "dependencies": {
-    "http": "*",
-    "https": "^1.0.0",
-    "node": "^22.13.0"
+    "express": "^5.1.0",
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^150.0.1",
+    "nodemon": "^3.1.10"
   }
 }
