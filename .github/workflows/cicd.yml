@@ -20,7 +20,7 @@ jobs:
     needs: build
     runs-on: windows
     steps:
-      - name: Check runner information
+      - name: Check runner informations
         run: |
           echo "✅ Self-hosted runner is successfully connected!"
           echo "Running on $(uname -a)" # Check OS and kernel info
