@@ -28,5 +28,16 @@ jobs:
           echo "Working directory: $(pwd)"
       - name: Pull Image From Docker Hub
         run: docker pull shubnit12/personalwebsiternodejs:latest
+      - name: Create Google Keys JSON file
+        run: |
+          mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
+          echo "${{ secrets.GOOGLE_KEYS_JSON }}" > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
+
       - name: Run Docker Container
-        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} shubnit12/personalwebsiternodejs
+        run: |
+          docker run -d \
+            -p 4000:4000 \
+            --name nodejs-app-container \
+            -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
+            -v /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json:/app/private/personalwebsiteKeys.json \
+            shubnit12/personalwebsiternodejs:latest
