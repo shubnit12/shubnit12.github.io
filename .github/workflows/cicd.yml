@@ -11,7 +11,7 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
       - name: Login to docker hub
-        run: docklogin -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build Docker Image
         run: docker build -t shubnit12/personalwebsiternodejs .
       - name: Publish Image to DockerHub
