@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "pp.html"));
 });
 
-app.get("/Resume", (req, res) => {
+app.get("/resume", (req, res) => {
   console.log("Downloading Resume");
   async function downloadFile(realFileId) {
     async function authenticate() {

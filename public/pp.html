@@ -62,7 +62,12 @@
           ></a>
         </div>
         <button class="contactButton"><span>Contact</span></button>
-        <button class="contactButton downloadResumeButton"><span><a href=http://localhost:3000/Resume download>Download Resume</a></span></button>
+        <button class="contactButton downloadResumeButton"><span><a href=/resume download>Download Resume</a></span></button>
+        <script>
+         // Set the resume link to current origin + /resume
+         document.querySelector('.downloadResumeButton a').href = window.location.origin + '/resume';
+       </script>
+
         </div>
 
       </section>
