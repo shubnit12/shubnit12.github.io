@@ -18,7 +18,7 @@ jobs:
         run: docker push shubnit12/personalwebsiternodejs:latest
   run_docker_container_on_ec2:
     needs: build
-    runs-on: windows
+    runs-on: DESKTOP-1IVFV6M
     steps:
       - name: Check runner informations
         run: |
