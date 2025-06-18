@@ -32,7 +32,9 @@ jobs:
         run: |
           mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
           echo "${{ secrets.GOOGLE_KEYS_JSON }}" > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
-
+      - name: Remove old container
+        run: |
+          docker rm -f nodejs-app-container || true
       - name: Run Docker Container
         run: |
           docker run -d \
