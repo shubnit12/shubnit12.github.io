@@ -1,0 +1,26 @@
+name: Deploy Node Application
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docklogin -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+      - name: Build Docker Image
+        run: docker build -t shubnit12/personalwebsiternodejs .
+      - name: Publish Image to DockerHub
+        run: docker push shubnit12/personalwebsiternodejs:latest
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull Image From Docker Hub
+        run: docker pull shubnit12/personalwebsiternodejs:latest
+      - name: Run Docker Dontainer
+        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{secrets.MONGO_PASSWORD}}' shubnit12/personalwebsiternodejs

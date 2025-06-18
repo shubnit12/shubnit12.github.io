@@ -1,16 +1,22 @@
+require("dotenv/config");
 const express = require("express");
 const path = require("path");
-const app = express();
-const port = 3000;
 const { GoogleAuth } = require("google-auth-library");
 const { google } = require("googleapis");
-import database from "./mongodbW.js";
+const port = process.env.PORT;
+const app = express();
 const secretDataJSON = path.join(
   __dirname,
   "private",
   "personalwebsiteKeys.json"
 );
-console.log(secretDataJSON);
+require("dotenv/config");
+const { MongoClient } = require("mongodb");
+const MONGOPASSWORD = process.env.MONGO_PASSWORD;
+const uri = `mongodb+srv://PersonalWebsiteMondoClusterUser1:${MONGOPASSWORD}@personalwebsitemodbclus.whlyyhw.mongodb.net/?retryWrites=true&w=majority&appName=PersonalWebsiteMoDBCluster1`;
+// console.log("uri ", uri);
+const dbName = "sample_mflix";
+let database;
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -71,6 +77,10 @@ app.get("/test", async (req, res) => {
   });
   console.log(cursor);
 });
-app.listen(port, () => {
+app.listen(port, async () => {
+  const client = new MongoClient(uri);
+  connection = await client.connect();
+  console.log("Client Conected Successfully");
+  database = await connection.db(dbName);
   console.log(`Example app listening on port ${port}`);
 });
