@@ -22,5 +22,5 @@ jobs:
     steps:
       - name: Pull Image From Docker Hub
         run: docker pull shubnit12/personalwebsiternodejs:latest
-      - name: Run Docker Dontainer
-        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{secrets.MONGO_PASSWORD}}' shubnit12/personalwebsiternodejs
+      - name: Run Docker Container
+        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD=${{secrets.MONGO_PASSWORD}} shubnit12/personalwebsiternodejs
