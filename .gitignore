@@ -1,5 +1,4 @@
 /node_modules
 /private
-/backend/node_modules
-/backend/private
 /serveFile
+.env
