@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/shubnit12/shubnit12.github.io#readme",
   "dependencies": {
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "google-auth-library": "^10.1.0",
     "googleapis": "^150.0.1",
+    "mongodb": "^6.17.0",
     "nodemon": "^3.1.10"
   }
 }

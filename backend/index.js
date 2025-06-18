@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 const { GoogleAuth } = require("google-auth-library");
 const { google } = require("googleapis");
+import database from "./mongodbW.js";
 const secretDataJSON = path.join(
   __dirname,
   "private",
@@ -63,6 +64,13 @@ app.get("/Resume", (req, res) => {
   } catch (error) {}
 });
 
+app.get("/test", async (req, res) => {
+  const collection = database.collection("users");
+  const cursor = await collection.findOne({
+    name: "Ned Stark",
+  });
+  console.log(cursor);
+});
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
