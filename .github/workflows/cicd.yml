@@ -16,10 +16,17 @@ jobs:
         run: docker build -t shubnit12/personalwebsiternodejs .
       - name: Publish Image to DockerHub
         run: docker push shubnit12/personalwebsiternodejs:latest
-  deploy:
+  run_docker_container_on_ec2:
     needs: build
     runs-on: self-hosted
     steps:
+      - name: Check runner information
+        run: |
+          echo "✅ Self-hosted runner is successfully connected!"
+          echo "Running on $(uname -a)" # Check OS and kernel info
+          echo "Runner hostname: $(hostname)"
+          echo "Current user: $(whoami)"
+          echo "Working directory: $(pwd)"
       - name: Pull Image From Docker Hub
         run: docker pull shubnit12/personalwebsiternodejs:latest
       - name: Run Docker Container
