@@ -14,7 +14,8 @@ require("dotenv/config");
 const { MongoClient } = require("mongodb");
 const MONGOPASSWORD = process.env.MONGO_PASSWORD;
 const uri = `mongodb+srv://PersonalWebsiteMondoClusterUser1:${MONGOPASSWORD}@personalwebsitemodbclus.whlyyhw.mongodb.net/?retryWrites=true&w=majority&appName=PersonalWebsiteMoDBCluster1`;
-// console.log("uri ", uri);
+console.log("uri ", uri);
+console.log("secretDataJSON ", secretDataJSON);
 const dbName = "sample_mflix";
 let database;
 
