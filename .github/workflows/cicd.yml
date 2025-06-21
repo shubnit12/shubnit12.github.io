@@ -16,22 +16,26 @@ jobs:
         run: docker build -t shubnit12/personalwebsiternodejs .
       - name: Publish Image to DockerHub
         run: docker push shubnit12/personalwebsiternodejs:latest
-  run_docker_container_on_ec2:
+  shell_commands_for_link_check:
     needs: build
     runs-on: self-hosted
     steps:
-      - name: Check runner informations
-        run: |
+    - name: Check runner informations
+      run: |
           echo "✅ Self-hosted runner is successfully connected!"
           echo "Runner hostname: $(hostname)"
           echo "Current user: $(whoami)"
           echo "Working directory: $(pwd)"
+    - name: Create Google Keys JSON file
+      run: |
+          mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
+          echo "${{ secrets.GOOGLE_KEYS_JSON }}" > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
+  run_docker_container_on_ec2:
+    needs: build
+    runs-on: self-hosted
+    steps:
       - name: Pull Image From Docker Hub
         run: docker pull shubnit12/personalwebsiternodejs:latest
-      - name: Create Google Keys JSON file
-        run: |
-          mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
-          echo "${{ vars.GOOGLE_KEYS_JSON2 }}" > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
       - name: Remove old container
         run: |
           docker rm -f nodejs-app-container || true
