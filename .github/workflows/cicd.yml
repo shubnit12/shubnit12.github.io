@@ -20,16 +20,16 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
-    - name: Check runner informations
-      run: |
+      - name: Check runner informations
+        run: |
           echo "✅ Self-hosted runner is successfully connected!"
           echo "Runner hostname: $(hostname)"
           echo "Current user: $(whoami)"
           echo "Working directory: $(pwd)"
-    - name: Create Google Keys JSON file
-      run: |
+      - name: Create Google Keys JSON file
+        run: |
           mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
-          echo "${{ secrets.GOOGLE_KEYS_JSON }}" > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
+          echo '${{ secrets.GOOGLE_KEYS_JSON }}' > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
   run_docker_container_on_ec2:
     needs: shell_commands_for_link_check
     runs-on: self-hosted
