@@ -196,6 +196,7 @@ footer {
   display: inline-block;
   position: relative;
   transition: 0.3s;
+  width: 100%;
 }
 .contactButton:active {
   /* background-color: #3b190f; */
