@@ -189,6 +189,7 @@ footer {
 
 .contactButton span,
 .contactButton span a,
+.contactButton a,
 .downloadResumeButton a {
   color: #ffffff;
   cursor: pointer;
