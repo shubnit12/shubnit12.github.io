@@ -3,8 +3,13 @@ const express = require("express");
 const path = require("path");
 const { GoogleAuth } = require("google-auth-library");
 const { google } = require("googleapis");
+const cors = require("cors");
+const multer = require("multer");
+const MongoDBConnection = require("./mongoDB");
+
 const port = 4000;
 const app = express();
+app.use(cors());
 const secretDataJSON = path.join(
   __dirname,
   "private",
@@ -16,8 +21,8 @@ const MONGOPASSWORD = process.env.MONGO_PASSWORD;
 const uri = `mongodb+srv://PersonalWebsiteMondoClusterUser1:${MONGOPASSWORD}@personalwebsitemodbclus.whlyyhw.mongodb.net/?retryWrites=true&w=majority&appName=PersonalWebsiteMoDBCluster1`;
 console.log("uri ", uri);
 console.log("secretDataJSON ", secretDataJSON);
-const dbName = "sample_mflix";
-let database;
+let collection;
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -72,16 +77,51 @@ app.get("/resume", (req, res) => {
 });
 
 app.get("/test", async (req, res) => {
-  const collection = database.collection("users");
-  const cursor = await collection.findOne({
-    name: "Ned Stark",
-  });
-  console.log(cursor);
+  const cursor = await collection
+    .find({
+      "article.blocks.data.text": "This is Bombardillo crocodillo H1",
+    })
+    .toArray();
+  // console.log(cursor[0].article.blocks);
+  res.status(200).send(cursor[0]);
 });
+
+// Configure Multer to specify the upload folder and filenames
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "uploads")); // Save images to 'uploads' directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname); // Add timestamp to filenames
+  },
+});
+
+const upload = multer({ storage });
+
+// Endpoint to handle image uploads
+app.post("/upload", upload.single("image"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: false, error: "No file uploaded." });
+  }
+
+  // Return the file URL
+  res.status(200).send({
+    success: true,
+    file: {
+      url: `http://localhost:4000/uploads/${req.file.filename}`, // File URL to access the uploaded file
+    },
+  });
+});
+app.post("/download", async (req, res) => {
+  res.status(200).send({
+    success: true,
+    file: {
+      url: `http://localhost:4000/uploads/${req.file.filename}`,
+    },
+  });
+});
+
 app.listen(port, async () => {
-  const client = new MongoClient(uri);
-  connection = await client.connect();
-  console.log("Client Conected Successfully");
-  database = await connection.db(dbName);
+  collection = await MongoDBConnection();
   console.log(`Example app listening on port ${port}`);
 });
