@@ -6,10 +6,17 @@ const { google } = require("googleapis");
 const cors = require("cors");
 const multer = require("multer");
 const MongoDBConnection = require("./mongoDB");
-
+const ObjectId = require("mongodb").ObjectId;
+const jwt = require("jsonwebtoken");
+const secretkey = "honeysecretkey";
 const port = 4000;
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 const secretDataJSON = path.join(
   __dirname,
   "private",
@@ -17,14 +24,65 @@ const secretDataJSON = path.join(
 );
 require("dotenv/config");
 const { MongoClient } = require("mongodb");
+const mongoDB = require("./mongoDB");
 const MONGOPASSWORD = process.env.MONGO_PASSWORD;
 const uri = `mongodb+srv://PersonalWebsiteMondoClusterUser1:${MONGOPASSWORD}@personalwebsitemodbclus.whlyyhw.mongodb.net/?retryWrites=true&w=majority&appName=PersonalWebsiteMoDBCluster1`;
 console.log("uri ", uri);
 console.log("secretDataJSON ", secretDataJSON);
-let collection;
+let database;
+let ArticleCollection;
+let userCollection;
+app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.static(path.join(__dirname, "public")));
+
+function authenticateUser(req, res, next) {
+  const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(401).send("access debnied n token providfed");
+  }
+  try {
+    const decoded = jwt.verify(token, secretkey);
+    req.user = decoded;
+    console.log("req.user ", req.user);
+    next();
+  } catch (error) {
+    return res.status(400).send("invalid token");
+  }
+}
+
+app.get("/protectedroute", authenticateUser, (req, res) => {
+  res.send("thisis protyested route access successfull");
+});
+
+app.post("/login", async (req, res) => {
+  if (req.body === undefined) {
+    return res.send("User Not Provided");
+  }
+
+  const user = req.body.user;
+  console.log(user.id);
+  let isUserinDB = await userCollection.findOne({
+    "user.id": user.id,
+    "user.password": user.password,
+  });
+  console.log("isUserinDB", isUserinDB);
+  if (!isUserinDB) {
+    return res
+      .status(401)
+      .json({ error: "Authentication failed No User in Db" });
+  }
+  const token = jwt.sign({ user }, secretkey, { expiresIn: "2h" });
+  user.JWTtoken = token;
+  res.set({ "Content-Type": "text/plain" });
+
+  res.cookie("ShubnitToken", token, {
+    httpOnly: false,
+    secure: false,
+  });
+  res.header("Authorization", token).send(user);
+});
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "pp.html"));
@@ -76,14 +134,36 @@ app.get("/resume", (req, res) => {
   } catch (error) {}
 });
 
-app.get("/test", async (req, res) => {
-  const cursor = await collection
-    .find({
-      "article.blocks.data.text": "This is Bombardillo crocodillo H1",
-    })
-    .toArray();
-  // console.log(cursor[0].article.blocks);
-  res.status(200).send(cursor[0]);
+app.post("/getArticleByID", async (req, res) => {
+  const cursor = await ArticleCollection.find({
+    _id: new ObjectId(req.body.id),
+  }).toArray();
+  res.status(200).send(cursor);
+});
+
+app.get("/getAllArticles", async (req, res) => {
+  const cursor = await ArticleCollection.find({}).toArray();
+  // const cursor = await collection.find({}).toArray();
+  res.status(200).send(cursor);
+});
+app.post("/addArticle", authenticateUser, async (req, res) => {
+  let data = req.body;
+  console.log();
+  const cursor = await ArticleCollection.insertOne({
+    article: data,
+  });
+  res.status(200).send({ serverResponse: cursor });
+});
+app.post("/updateArticle", authenticateUser, async (req, res) => {
+  let articleID = req.body._id;
+  let articleData = req.body.article;
+
+  const cursor = await ArticleCollection.replaceOne(
+    { _id: new ObjectId(articleID) },
+    { article: articleData }
+  );
+  console.log(cursor);
+  res.status(200).send(cursor);
 });
 
 // Configure Multer to specify the upload folder and filenames
@@ -121,7 +201,17 @@ app.post("/download", async (req, res) => {
   });
 });
 
+app.get("/testing", (req, res) => {
+  res.cookie("mycookie", "mydatacookie", {
+    httpOnly: false,
+    secure: false,
+  });
+  res.status(200).send("cookie has been sent");
+});
+
 app.listen(port, async () => {
-  collection = await MongoDBConnection();
+  database = await MongoDBConnection();
+  ArticleCollection = database.collection("ArticleCollection");
+  userCollection = database.collection("Users");
   console.log(`Example app listening on port ${port}`);
 });

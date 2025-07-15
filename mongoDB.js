@@ -10,7 +10,7 @@ module.exports = async function MongoDBConnection() {
   const connection = await client.connect();
   console.log("Client Conected Successfully");
   const database = await connection.db(dbName);
-  const collection = database.collection("ArticleCollection");
-  return collection;
+  // const collection = database.collection("ArticleCollection");
+  return database;
 };
 // MongoDBConnection();
