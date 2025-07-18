@@ -39,6 +39,9 @@ jobs:
       - name: Remove old container
         run: |
           docker rm -f nodejs-app-container || true
+      - name: Remove old container
+        run: |
+          docker system prune -a -f || true
       - name: Run Docker Container
         run: |
           docker run -d \
