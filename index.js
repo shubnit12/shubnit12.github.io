@@ -6,9 +6,12 @@ const { google } = require("googleapis");
 const cors = require("cors");
 const multer = require("multer");
 const MongoDBConnection = require("./mongoDB");
+const fetch = require("node-fetch-cjs");
+const axios = require("axios");
 const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 const secretkey = "honeysecretkey";
+const s3Use = require("./s3Use");
 const port = 4000;
 const app = express();
 app.use(
@@ -165,21 +168,30 @@ app.post("/updateArticle", authenticateUser, async (req, res) => {
   console.log(cursor);
   res.status(200).send(cursor);
 });
-
+let nameOfUploadedFile = "";
 // Configure Multer to specify the upload folder and filenames
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "uploads")); // Save images to 'uploads' directory
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname); // Add timestamp to filenames
+    nameOfUploadedFile = Date.now() + "-" + file.originalname;
+    cb(null, nameOfUploadedFile); // Add timestamp to filenames
   },
 });
 
 const upload = multer({ storage });
 
 // Endpoint to handle image uploads
-app.post("/upload", upload.single("image"), (req, res) => {
+app.post("/upload", upload.single("image"), async (req, res) => {
+  // console.log(req);
+  console.log("  nameOfUploadedFile : ", nameOfUploadedFile);
+  let dataObject = {
+    fileName: nameOfUploadedFile,
+    filePath: path.join(__dirname, "uploads", nameOfUploadedFile),
+  };
+  await s3Use.uploadFileToAwsS3(dataObject);
+
   if (!req.file) {
     return res.status(400).json({ success: false, error: "No file uploaded." });
   }
@@ -188,17 +200,25 @@ app.post("/upload", upload.single("image"), (req, res) => {
   res.status(200).send({
     success: true,
     file: {
-      url: `http://localhost:4000/uploads/${req.file.filename}`, // File URL to access the uploaded file
+      url: `http://localhost:4000/download/${nameOfUploadedFile}`, // File URL to access the uploaded file
     },
   });
 });
-app.post("/download", async (req, res) => {
-  res.status(200).send({
-    success: true,
-    file: {
-      url: `http://localhost:4000/uploads/${req.file.filename}`,
-    },
-  });
+app.get("/download/:imageFileName", async (req, res) => {
+  let dataObject = {
+    fileName: req.params.imageFileName,
+  };
+  let imageURL = await s3Use.getFileFromAwsS3(dataObject);
+  console.log("imageURL : ", imageURL);
+  // let response = await fetch(imageURL);
+  const response = await axios.get(imageURL, { responseType: "stream" });
+  response.data.pipe(res);
+  // res.status(200).send({
+  //   success: true,
+  //   file: {
+  //     url: imageURL,
+  //   },
+  // });
 });
 
 app.get("/testing", (req, res) => {
