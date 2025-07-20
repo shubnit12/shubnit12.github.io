@@ -16,7 +16,11 @@ const port = 4000;
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://www.shubnit.com",
+      "https://api.shubnit.com",
+    ],
     credentials: true,
   })
 );
@@ -200,7 +204,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
   res.status(200).send({
     success: true,
     file: {
-      url: `http://localhost:4000/download/${nameOfUploadedFile}`, // File URL to access the uploaded file
+      url: `https://api.shubnit.com/download/${nameOfUploadedFile}`, // File URL to access the uploaded file
     },
   });
 });
@@ -208,6 +212,7 @@ app.get("/download/:imageFileName", async (req, res) => {
   let dataObject = {
     fileName: req.params.imageFileName,
   };
+  console.log("dataObject : ", dataObject);
   let imageURL = await s3Use.getFileFromAwsS3(dataObject);
   console.log("imageURL : ", imageURL);
   // let response = await fetch(imageURL);
@@ -221,8 +226,8 @@ app.get("/download/:imageFileName", async (req, res) => {
   // });
 });
 
-app.get("/validateJwtToken", async (req,res)=>{
-   const token = req.headers["authorization"];
+app.get("/validateJwtToken", async (req, res) => {
+  const token = req.headers["authorization"];
   if (!token) {
     return res.status(401).send("access denied no token providfed");
   }
@@ -230,11 +235,11 @@ app.get("/validateJwtToken", async (req,res)=>{
     const decoded = jwt.verify(token, secretkey);
     req.user = decoded;
     // console.log("req.user ", req.user);
-    res.status(200).send({tokenIsValid:true})
+    res.status(200).send({ tokenIsValid: true });
   } catch (error) {
-    return res.status(200).send({tokenIsValid:false})
+    return res.status(200).send({ tokenIsValid: false });
   }
-})
+});
 app.get("/testing", (req, res) => {
   res.cookie("mycookie", "mydatacookie", {
     httpOnly: false,
