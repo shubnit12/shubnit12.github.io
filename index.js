@@ -221,6 +221,20 @@ app.get("/download/:imageFileName", async (req, res) => {
   // });
 });
 
+app.get("/validateJwtToken", async (req,res)=>{
+   const token = req.headers["authorization"];
+  if (!token) {
+    return res.status(401).send("access denied no token providfed");
+  }
+  try {
+    const decoded = jwt.verify(token, secretkey);
+    req.user = decoded;
+    // console.log("req.user ", req.user);
+    res.status(200).send({tokenIsValid:true})
+  } catch (error) {
+    return res.status(200).send({tokenIsValid:false})
+  }
+})
 app.get("/testing", (req, res) => {
   res.cookie("mycookie", "mydatacookie", {
     httpOnly: false,
