@@ -210,9 +210,7 @@ app.post("/upload", upload.single("image"), async (req, res) => {
 });
 app.get("/download/:imageFileName", async (req, res) => {
   let dataObject = {
-    // fileName: req.params.imageFileName,
-    fileName:
-      "1752912368974-on-a-scale-of-1-to-10-how-excited-are-you-right-now-for-v0-qpukbrj4xfze1.webp",
+    fileName: req.params.imageFileName,
   };
   console.log("dataObject : ", dataObject);
   let imageURL = await s3Use.getFileFromAwsS3(dataObject);
