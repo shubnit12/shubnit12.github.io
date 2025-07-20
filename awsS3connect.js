@@ -11,10 +11,10 @@ const {
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const fs = require("fs");
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
+  region: "ap-south-1",
   credentials: {
-    accessKeyId: process.env.AWS_ACCESSKEYID,
-    secretAccessKey: process.env.AWS_SECRETACESSKEY,
+    accessKeyId: "AKIASDRANQACCCJWBH5Q",
+    secretAccessKey: "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",
   },
 });
 
@@ -22,7 +22,7 @@ exports.uploadFileToAWS = async (fileName, filePath) => {
   // async function uploadFileToAWS(fileName, filePath) {
   try {
     const uploadParams = {
-      Bucket: process.env.AWS_BUCKET_NAME,
+      Bucket: "personalwebsites3",
       Key: fileName,
       Body: fs.createReadStream(filePath),
     };
@@ -51,7 +51,7 @@ exports.getFileUrlFromAws = async (fileName, expireTime = null) => {
     const check = await isFileAvailableInAwsBucket(fileName);
     if (check) {
       const command = new GetObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: "personalwebsites3",
         Key: fileName,
       });
       if (expireTime != null) {
@@ -77,7 +77,7 @@ async function isFileAvailableInAwsBucket(fileName) {
   try {
     await s3Client.send(
       new HeadObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: "personalwebsites3",
         Key: fileName,
       })
     );
