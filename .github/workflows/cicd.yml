@@ -48,5 +48,11 @@ jobs:
             -p 4000:4000 \
             --name nodejs-app-container \
             -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
+            -e NODE_ENV=development \
+            -e PORT=4000 \
+            -e AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }} \
+            -e AWS_ACCESSKEYID=${{ secrets.AWS_ACCESSKEYID }} \
+            -e AWS_SECRETACESSKEY=${{ secrets.AWS_SECRETACESSKEY }} \
+            -e AWS_REGION=${{ secrets.AWS_REGION }} \
             -v /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json:/app/private/personalwebsiteKeys.json \
             shubnit12/personalwebsiternodejs:latest
