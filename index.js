@@ -88,7 +88,7 @@ app.post("/login", async (req, res) => {
 
   res.cookie("ShubnitToken", token, {
     httpOnly: false,
-    secure: true,
+    // secure: true,
     sameSite: "None",
   });
   res.header("Authorization", token).send(user);
