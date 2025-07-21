@@ -22,6 +22,7 @@ app.use(
       "https://api.shubnit.com",
       "https://shubnit.com",
       "https://blog.shubnit.com",
+      "https://blog-three-black-42.vercel.app",
     ],
     credentials: true,
   })
