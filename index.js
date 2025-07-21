@@ -20,6 +20,8 @@ app.use(
       "http://localhost:3000",
       "https://www.shubnit.com",
       "https://api.shubnit.com",
+      "https://shubnit.com",
+      "https://blog.shubnit.com",
     ],
     credentials: true,
   })
@@ -87,6 +89,7 @@ app.post("/login", async (req, res) => {
   res.cookie("ShubnitToken", token, {
     httpOnly: false,
     secure: false,
+    sameSite: "None",
   });
   res.header("Authorization", token).send(user);
 });
