@@ -6,12 +6,30 @@ const { google } = require("googleapis");
 const cors = require("cors");
 const multer = require("multer");
 const MongoDBConnection = require("./mongoDB");
-const fetch = require("node-fetch-cjs");
 const axios = require("axios");
 const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 const secretkey = "honeysecretkey";
 const s3Use = require("./s3Use");
+const crypto = require("crypto");
+const algorithm = "aes-256-cbc";
+const key = crypto.randomBytes(32); // 256-bit key
+const iv = crypto.randomBytes(16); // Initialization vector
+
+function encrypt(text) {
+  const cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
+  let encrypted = cipher.update(text, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return encrypted;
+}
+
+function decrypt(encryptedText) {
+  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
+  let decrypted = decipher.update(encryptedText, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  return decrypted;
+}
+
 const port = 4000;
 const app = express();
 app.use(
@@ -48,10 +66,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "public")));
 
 function authenticateUser(req, res, next) {
-  const token = req.headers["authorization"];
-  if (!token) {
+  const nondecryptedtoken = req.headers["authorization"];
+  if (!nondecryptedtoken) {
     return res.status(401).send("access debnied n token providfed");
   }
+  let token = decrypt(nondecryptedtoken);
   try {
     const decoded = jwt.verify(token, secretkey);
     req.user = decoded;
@@ -84,15 +103,16 @@ app.post("/login", async (req, res) => {
       .json({ error: "Authentication failed No User in Db" });
   }
   const token = jwt.sign({ user }, secretkey, { expiresIn: "2h" });
-  user.JWTtoken = token;
+  let encryptedToken = encrypt(token);
+  user.JWTtoken = encryptedToken;
   res.set({ "Content-Type": "text/plain" });
 
-  res.cookie("ShubnitToken", token, {
+  res.cookie("ShubnitToken", encryptedToken, {
     httpOnly: false,
     // secure: true,
-    sameSite: "None",
+    // sameSite: "None",
   });
-  res.header("Authorization", token).send(user);
+  res.header("Authorization", encryptedToken).send(user);
 });
 
 app.get("/", (req, res) => {
@@ -231,10 +251,12 @@ app.get("/download/:imageFileName", async (req, res) => {
 });
 
 app.get("/validateJwtToken", async (req, res) => {
-  const token = req.headers["authorization"];
-  if (!token) {
+  const nondecryptedtoken = req.headers["authorization"];
+  if (!nondecryptedtoken) {
     return res.status(401).send("access denied no token providfed");
   }
+  let token = decrypt(nondecryptedtoken);
+
   try {
     const decoded = jwt.verify(token, secretkey);
     req.user = decoded;
