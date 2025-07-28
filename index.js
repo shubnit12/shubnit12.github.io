@@ -179,11 +179,15 @@ app.get("/getAllArticles", async (req, res) => {
 });
 app.post("/addArticle", authenticateUser, async (req, res) => {
   let data = req.body;
-  console.log();
-  const cursor = await ArticleCollection.insertOne({
-    article: data,
-  });
-  res.status(200).send({ serverResponse: cursor });
+  // console.log("Data : ", data.blocks.length);
+  if (!data.blocks || data.blocks.length === 0) {
+    res.status(400).send({ error: "Data is not in valid format" });
+  } else {
+    const cursor = await ArticleCollection.insertOne({
+      article: data,
+    });
+    res.status(200).send({ serverResponse: cursor });
+  }
 });
 app.post("/updateArticle", authenticateUser, async (req, res) => {
   let articleID = req.body._id;
