@@ -165,11 +165,18 @@ app.get("/resume", (req, res) => {
   } catch (error) {}
 });
 
-app.post("/getArticleByID", async (req, res) => {
-  const cursor = await ArticleCollection.find({
-    _id: new ObjectId(req.body.id),
+app.get("/getArticleByID/:id", async (req, res) => {
+  const articleId = req.params.id;
+  try {
+    const cursor = await ArticleCollection.find({
+    _id: new ObjectId(articleId),
   }).toArray();
-  res.status(200).send(cursor);
+  console.log(cursor)
+  res.status(200).send({success : true, cursor: cursor});
+  } catch (error) {
+  res.status(400).send({success : false});
+  }
+  
 });
 
 app.get("/getAllArticles", async (req, res) => {
