@@ -24,10 +24,14 @@ function encrypt(text) {
 }
 
 function decrypt(encryptedText) {
-  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
-  let decrypted = decipher.update(encryptedText, "hex", "utf8");
-  decrypted += decipher.final("utf8");
-  return decrypted;
+  try {
+    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
+    let decrypted = decipher.update(encryptedText, "hex", "utf8");
+    decrypted += decipher.final("utf8");
+    return decrypted;
+  } catch (error) {
+    return null;
+  }
 }
 
 const port = 4000;
@@ -68,7 +72,7 @@ app.use(express.static(path.join(__dirname, "public")));
 function authenticateUser(req, res, next) {
   const nondecryptedtoken = req.headers["authorization"];
   if (!nondecryptedtoken) {
-    return res.status(401).send("access debnied n token providfed");
+    return res.status(401).send("access denied!!!!!");
   }
   let token = decrypt(nondecryptedtoken);
   try {
@@ -82,7 +86,7 @@ function authenticateUser(req, res, next) {
 }
 
 app.get("/protectedroute", authenticateUser, (req, res) => {
-  res.send("thisis protyested route access successfull");
+  res.send("this is proceted route");
 });
 
 app.post("/login", async (req, res) => {
@@ -98,9 +102,7 @@ app.post("/login", async (req, res) => {
   });
   console.log("isUserinDB", isUserinDB);
   if (!isUserinDB) {
-    return res
-      .status(401)
-      .json({ error: "Authentication failed No User in Db" });
+    return res.status(401).json({ error: "Invaid Credentials" });
   }
   const token = jwt.sign({ user }, secretkey, { expiresIn: "2h" });
   let encryptedToken = encrypt(token);
@@ -257,7 +259,7 @@ app.get("/download/:imageFileName", async (req, res) => {
 app.get("/validateJwtToken", async (req, res) => {
   const nondecryptedtoken = req.headers["authorization"];
   if (!nondecryptedtoken) {
-    return res.status(401).send("access denied no token providfed");
+    return res.status(401).send("access denied no token provided");
   }
   let token = decrypt(nondecryptedtoken);
 
@@ -276,6 +278,47 @@ app.get("/testing", (req, res) => {
     secure: false,
   });
   res.status(200).send("cookie has been sent");
+});
+app.post("/deleteArticle", authenticateUser, async (req, res) => {
+  if (req.body.deleteSecretPhrase === process.env.DELETE_SECRET_PHRASE) {
+    if (!req.body.articleID || !req.body.deleteSecretPhrase) {
+      res.status(400).send({
+        success: false,
+        error: "Invalid Data",
+      });
+    } else {
+      const cursor = await ArticleCollection.find({
+        _id: new ObjectId(req.body.articleID),
+      }).toArray();
+      console.log("cursor : ", cursor);
+      if (cursor.length === 0) {
+        res.status(404).send({ success: false, error: "Invalid Article ID" });
+      } else {
+        //delete the article
+        try {
+          const result = await ArticleCollection.deleteOne({
+            _id: new ObjectId(req.body.articleID),
+          });
+          res.status(200).send({
+            success: true,
+            message: "deleteArticle called successfully",
+            result: result,
+          });
+        } catch (error) {
+          res.status(400).send({ success: false, message: result });
+        }
+      }
+
+      // res.status(200).send("deleteArticle called successfully");
+    }
+  } else {
+    res.status(401).send({ success: false, error: "Invalid Data" });
+  }
+});
+
+app.get("/ashish", (req, res) => {
+  console.log("ashish : ", req.body);
+  res.status(301).send({ mydtaa: "mydtaa" });
 });
 
 app.listen(port, async () => {
