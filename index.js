@@ -10,6 +10,7 @@ const axios = require("axios");
 const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 const secretkey = "honeysecretkey";
+const {MailtrapClient} = require("mailtrap")
 const s3Use = require("./s3Use");
 const crypto = require("crypto");
 const algorithm = "aes-256-cbc";
@@ -323,9 +324,44 @@ app.post("/deleteArticle", authenticateUser, async (req, res) => {
   }
 });
 
-app.get("/ashish", (req, res) => {
-  console.log("ashish : ", req.body);
-  res.status(301).send({ mydtaa: "mydtaa" });
+
+app.post("/recieveEmail", (req, res) => {
+  console.log("Request Body : ", req.body);
+  // MailtrapClient
+
+
+  const client = new MailtrapClient({
+    token: process.env.TOKEN,
+  });
+
+  const sender = {
+    email: "hello@demomailtrap.co",
+    name: "Mailtrap Test",
+  };
+  const recipients = [
+    {
+      email: process.env.EMAIL,
+    }
+  ];
+try {
+  client
+    .send({
+      from: sender,
+      to: recipients,
+      subject: "Email From Shubnit.com your Website",
+      text: JSON.stringify(req.body),
+    })
+    .then(() => {
+      console.log
+      res.status(200).send({ success: true });
+    })
+    .catch(() => {
+      res.status(200).send({ success: false });
+    });
+} catch (error) {
+   res.status(200).send({ success: false });
+}
+  
 });
 
 app.listen(port, async () => {
