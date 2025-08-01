@@ -41,6 +41,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "http://localhost:4000",
       "https://www.shubnit.com",
       "https://api.shubnit.com",
       "https://shubnit.com",
