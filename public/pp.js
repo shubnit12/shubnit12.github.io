@@ -50,10 +50,29 @@ contactSubmitButton.onclick = function () {
       }, 3000);
     }, 500);
   } else {
-    console.log("sending Data");
-    let isSuccess = true;
-    if (isSuccess) {
-      console.log(" Data Sent Successfully");
+    // console.log("sending Data");
+    let data = {
+    name: nameInput.value,
+    email: emailInput.value,
+    message: messageInput.value
+    }
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+const raw = JSON.stringify(data);
+// console.log(raw)
+const requestOptions = {
+  method: "POST",
+  body: raw,
+  headers: myHeaders,
+  redirect: "follow"
+};
+
+fetch("https://api.shubnit.com/recieveEmail", requestOptions)
+  .then((response) => response.json())
+  .then((result) => {
+    // console.log(result)
+    if (result.success) {
+      // console.log(" Data Sent Successfully");
       successEmailAlert.style.display = "block";
       setTimeout(() => {
         successEmailAlert.style.opacity = "1";
@@ -66,7 +85,7 @@ contactSubmitButton.onclick = function () {
       }, 500);
       modal.style.display = "none";
     } else {
-      console.log(" Data Not Sent Successfully");
+      // console.log(" Data Not Sent Successfully");
       errorEmailAlert.style.display = "block";
       setTimeout(() => {
         errorEmailAlert.style.opacity = "1";
@@ -78,9 +97,23 @@ contactSubmitButton.onclick = function () {
         }, 3000);
       }, 500);
     }
+  })
+  .catch((error) => {console.error(error)
+      // console.log(" Data Not Sent Successfully");
+      errorEmailAlert.style.display = "block";
+      setTimeout(() => {
+        errorEmailAlert.style.opacity = "1";
+        setTimeout(() => {
+          errorEmailAlert.style.opacity = "0";
+          setTimeout(() => {
+            errorEmailAlert.style.display = "none";
+          }, 6000);
+        }, 3000);
+      }, 500);
+  });
+
   }
 
-  //   window.location = "mailto:shubnit99@gmail.com";
 };
 
 let contactSubmitButtonMail = document.querySelector(
@@ -89,7 +122,7 @@ let contactSubmitButtonMail = document.querySelector(
 contactSubmitButtonMail.onclick = function () {
   modal.style.display = "none";
   window.location =
-    "mailto:shubnit12@gmail.com?Subject=Hello, I am on your website and ...";
+    "mailto:ztbhgt@gmail.com?Subject=Hello, I am on your website and ...";
 };
 
 const startOf2025 = new Date("January 1, 2025 00:00:00").getTime();
