@@ -344,6 +344,8 @@ app.post("/recieveEmail", (req, res) => {
     }
   ];
 try {
+   console.log("Token : " , process.env.TOKEN)
+  console.log("email : " , process.env.EMAIL)
   client
     .send({
       from: sender,
@@ -351,14 +353,20 @@ try {
       subject: "Email From Shubnit.com your Website",
       text: JSON.stringify(req.body),
     })
-    .then(() => {
+    .then((result) => {
       console.log
       res.status(200).send({ success: true });
+            console.log(result)
+
     })
-    .catch(() => {
+    .catch((error) => {
+            console.log(error)
+
       res.status(200).send({ success: false });
     });
 } catch (error) {
+    console.log(error)
+
    res.status(200).send({ success: false });
 }
   
