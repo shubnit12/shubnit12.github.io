@@ -332,7 +332,7 @@ app.post("/recieveEmail", (req, res) => {
 
 
   const client = new MailtrapClient({
-    token: process.env.TOKEN,
+    token: process.env.MAILTOKEN,
   });
 
   const sender = {
@@ -345,7 +345,7 @@ app.post("/recieveEmail", (req, res) => {
     }
   ];
 try {
-   console.log("Token : " , process.env.TOKEN)
+   console.log("Token : " , process.env.MAILTOKEN)
   console.log("email : " , process.env.EMAIL)
   client
     .send({
