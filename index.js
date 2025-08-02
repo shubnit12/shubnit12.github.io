@@ -108,15 +108,23 @@ app.post("/login", async (req, res) => {
   }
   const token = jwt.sign({ user }, secretkey, { expiresIn: "2h" });
   let encryptedToken = encrypt(token);
-  user.JWTtoken = encryptedToken;
+  // user.JWTtoken = encryptedToken;
   res.set({ "Content-Type": "text/plain" });
 
-  res.cookie("ShubnitToken", encryptedToken, {
-    httpOnly: false,
-    // secure: true,
-    // sameSite: "None",
+  // res.cookie("ShubnitToken", encryptedToken, {
+  //   httpOnly: false,
+  //   // secure: true,
+  //   // sameSite: "None",
+  // });
+    res.cookie("ShubnitToken", encryptedToken, {
+    httpOnly: true, // Prevents access from client-side JavaScript
+    secure: true, // Ensures cookie is only sent over HTTPS
+    sameSite: "strict", // Protects against CSRF attacks
+    maxAge: 2 * 60 * 60 * 1000, // Cookie expires in 2 hours
   });
-  res.header("Authorization", encryptedToken).send(user);
+
+  
+  res.header("Authorization", encryptedToken).send({JWTtoken: encryptedToken});
 });
 
 app.get("/", (req, res) => {
