@@ -119,7 +119,7 @@ app.post("/login", async (req, res) => {
     res.cookie("ShubnitToken", encryptedToken, {
     httpOnly: true, // Prevents access from client-side JavaScript
     secure: true, // Ensures cookie is only sent over HTTPS
-    sameSite: "strict", // Protects against CSRF attacks
+    sameSite: "none", // Protects against CSRF attacks
     maxAge: 2 * 60 * 60 * 1000, // Cookie expires in 2 hours
   });
 
