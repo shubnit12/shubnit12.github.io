@@ -191,7 +191,11 @@ app.get("/getArticleByID/:id", async (req, res) => {
       _id: new ObjectId(articleId),
     }).toArray();
     console.log(cursor);
-    res.status(200).send({ success: true, cursor: cursor });
+    if (cursor.length === 0) {
+      res.status(400).send({ success: false });
+    } else {
+      res.status(200).send({ success: true, cursor: cursor });
+    }
   } catch (error) {
     res.status(400).send({ success: false });
   }
