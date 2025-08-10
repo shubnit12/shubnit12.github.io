@@ -10,9 +10,10 @@ const axios = require("axios");
 const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 const secretkey = "honeysecretkey";
-const {MailtrapClient} = require("mailtrap")
+const { MailtrapClient } = require("mailtrap");
 const s3Use = require("./s3Use");
 const crypto = require("crypto");
+const rateLimit = require("express-rate-limit");
 const algorithm = "aes-256-cbc";
 const key = crypto.randomBytes(32); // 256-bit key
 const iv = crypto.randomBytes(16); // Initialization vector
@@ -34,9 +35,14 @@ function decrypt(encryptedText) {
     return null;
   }
 }
-
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minutes
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 1 minutes)
+  message: "Too many requests from this IP, please try again after 1 minutes",
+});
 const port = 4000;
 const app = express();
+app.use(limiter);
 app.use(
   cors({
     origin: [
@@ -123,8 +129,9 @@ app.post("/login", async (req, res) => {
   //   maxAge: 2 * 60 * 60 * 1000, // Cookie expires in 2 hours
   // });
 
-  
-  res.header("Authorization", encryptedToken).send({JWTtoken: encryptedToken});
+  res
+    .header("Authorization", encryptedToken)
+    .send({ JWTtoken: encryptedToken });
 });
 
 app.get("/", (req, res) => {
@@ -181,14 +188,13 @@ app.get("/getArticleByID/:id", async (req, res) => {
   const articleId = req.params.id;
   try {
     const cursor = await ArticleCollection.find({
-    _id: new ObjectId(articleId),
-  }).toArray();
-  console.log(cursor)
-  res.status(200).send({success : true, cursor: cursor});
+      _id: new ObjectId(articleId),
+    }).toArray();
+    console.log(cursor);
+    res.status(200).send({ success: true, cursor: cursor });
   } catch (error) {
-  res.status(400).send({success : false});
+    res.status(400).send({ success: false });
   }
-  
 });
 
 app.get("/getAllArticles", async (req, res) => {
@@ -234,27 +240,34 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Endpoint to handle image uploads
-app.post("/upload", authenticateUser, upload.single("image"), async (req, res) => {
-  // console.log(req);
-  console.log("  nameOfUploadedFile : ", nameOfUploadedFile);
-  let dataObject = {
-    fileName: nameOfUploadedFile,
-    filePath: path.join(__dirname, "uploads", nameOfUploadedFile),
-  };
-  await s3Use.uploadFileToAwsS3(dataObject);
+app.post(
+  "/upload",
+  authenticateUser,
+  upload.single("image"),
+  async (req, res) => {
+    // console.log(req);
+    console.log("  nameOfUploadedFile : ", nameOfUploadedFile);
+    let dataObject = {
+      fileName: nameOfUploadedFile,
+      filePath: path.join(__dirname, "uploads", nameOfUploadedFile),
+    };
+    await s3Use.uploadFileToAwsS3(dataObject);
 
-  if (!req.file) {
-    return res.status(400).json({ success: false, error: "No file uploaded." });
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ success: false, error: "No file uploaded." });
+    }
+
+    // Return the file URL
+    res.status(200).send({
+      success: true,
+      file: {
+        url: `https://api.shubnit.com/download/${nameOfUploadedFile}`, // File URL to access the uploaded file
+      },
+    });
   }
-
-  // Return the file URL
-  res.status(200).send({
-    success: true,
-    file: {
-      url: `https://api.shubnit.com/download/${nameOfUploadedFile}`, // File URL to access the uploaded file
-    },
-  });
-});
+);
 app.get("/download/:imageFileName", async (req, res) => {
   let dataObject = {
     fileName: req.params.imageFileName,
@@ -290,10 +303,7 @@ app.get("/validateJwtToken", async (req, res) => {
   }
 });
 app.get("/testing", (req, res) => {
-  res.cookie("mycookie", "mydatacookie", {
-    httpOnly: false,
-    secure: false,
-  });
+  console.log("tets");
   res.status(200).send("cookie has been sent");
 });
 app.post("/deleteArticle", authenticateUser, async (req, res) => {
@@ -333,11 +343,9 @@ app.post("/deleteArticle", authenticateUser, async (req, res) => {
   }
 });
 
-
 app.post("/recieveEmail", (req, res) => {
   console.log("Request Body : ", req.body);
   // MailtrapClient
-
 
   const client = new MailtrapClient({
     token: process.env.MAILTOKEN,
@@ -350,35 +358,33 @@ app.post("/recieveEmail", (req, res) => {
   const recipients = [
     {
       email: process.env.EMAIL,
-    }
+    },
   ];
-try {
-   console.log("Token : " , process.env.MAILTOKEN)
-  console.log("email : " , process.env.EMAIL)
-  client
-    .send({
-      from: sender,
-      to: recipients,
-      subject: "Email From Shubnit.com your Website",
-      text: JSON.stringify(req.body),
-    })
-    .then((result) => {
-      console.log
-      res.status(200).send({ success: true });
-            console.log(result)
+  try {
+    console.log("Token : ", process.env.MAILTOKEN);
+    console.log("email : ", process.env.EMAIL);
+    client
+      .send({
+        from: sender,
+        to: recipients,
+        subject: "Email From Shubnit.com your Website",
+        text: JSON.stringify(req.body),
+      })
+      .then((result) => {
+        console.log;
+        res.status(200).send({ success: true });
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
 
-    })
-    .catch((error) => {
-            console.log(error)
+        res.status(200).send({ success: false });
+      });
+  } catch (error) {
+    console.log(error);
 
-      res.status(200).send({ success: false });
-    });
-} catch (error) {
-    console.log(error)
-
-   res.status(200).send({ success: false });
-}
-  
+    res.status(200).send({ success: false });
+  }
 });
 
 app.listen(port, async () => {
