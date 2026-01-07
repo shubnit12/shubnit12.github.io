@@ -125,10 +125,10 @@ contactSubmitButtonMail.onclick = function () {
     "mailto:ztbhgt@gmail.com?Subject=Hello, I am on your website and ...";
 };
 
-const startOf2025 = new Date("January 1, 2025 00:00:00").getTime();
-const total2025 = new Date("December 31, 2025 23:59:59").getTime();
+const startOf2026 = new Date("January 1, 2026 00:00:00").getTime();
+const total2026 = new Date("December 31, 2026 23:59:59").getTime();
 
-let totalMSin2025 = total2025 - startOf2025;
+let totalMSin2026 = total2026 - startOf2026;
 
 let pTag = document.createElement("p");
 const currentPercent = document.querySelector(".currentPercent");
@@ -136,8 +136,8 @@ currentPercent.appendChild(pTag);
 let progressBar = document.querySelector(".innerCurrentPercentage");
 // pTag.innerText = ratiocompleted;
 function percentageCalc() {
-  let timeElapsed = new Date() - startOf2025;
-  let ratiocompleted = timeElapsed / totalMSin2025;
+  let timeElapsed = new Date() - startOf2026;
+  let ratiocompleted = timeElapsed / totalMSin2026;
   let percentage = (ratiocompleted * 100).toFixed(12);
 
   pTag.innerText = percentage;
