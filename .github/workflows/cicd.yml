@@ -34,14 +34,14 @@ jobs:
     needs: shell_commands_for_link_check
     runs-on: self-hosted
     steps:
-      - name: Pull Image From Docker Hub
-        run: docker pull shubnit12/personalwebsiternodejs:latest
       - name: Remove old container
         run: |
           docker rm -f nodejs-app-container || true
       - name: Remove old container
         run: |
           docker system prune -a -f || true
+      - name: Pull Image From Docker Hub
+        run: docker pull shubnit12/personalwebsiternodejs:latest
       - name: Run Docker Container
         run: |
           docker run -d \
