@@ -1,61 +1,32 @@
-name: Deploy Node Application
+name: Deploy Portfolio
 
 on:
   push:
     branches:
       - main
+
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source Code
+      - name: Checkout source
         uses: actions/checkout@v4
-      - name: Login to docker hub
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Build Docker Image
-        run: docker build -t shubnit12/personalwebsiternodejs .
-      - name: Publish Image to DockerHub
-        run: docker push shubnit12/personalwebsiternodejs:latest
-  shell_commands_for_link_check:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Check runner informations
-        run: |
-          echo "✅ Self-hosted runner is successfully connected!"
-          echo "Runner hostname: $(hostname)"
-          echo "Current user: $(whoami)"
-          echo "Working directory: $(pwd)"
-      - name: Create Google Keys JSON file
-        run: |
-          mkdir -p /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private
-          echo '${{ secrets.GOOGLE_KEYS_JSON }}' > /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json
-  run_docker_container_on_ec2:
-    needs: shell_commands_for_link_check
-    runs-on: self-hosted
-    steps:
-      - name: Remove old container
-        run: |
-          docker rm -f nodejs-app-container || true
-      - name: Remove old container
-        run: |
-          docker system prune -a -f || true
-      - name: Pull Image From Docker Hub
-        run: docker pull shubnit12/personalwebsiternodejs:latest
-      - name: Run Docker Container
-        run: |
-          docker run -d \
-            -p 4000:4000 \
-            --name nodejs-app-container \
-            -e MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }} \
-            -e NODE_ENV=development \
-            -e PORT=4000 \
-            -e AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }} \
-            -e AWS_ACCESSKEYID=${{ secrets.AWS_ACCESSKEYID }} \
-            -e AWS_SECRETACESSKEY=${{ secrets.AWS_SECRETACESSKEY }} \
-            -e AWS_REGION=${{ secrets.AWS_REGION }} \
-            -e DELETE_SECRET_PHRASE=${{ secrets.DELETE_SECRET_PHRASE }} \
-            -e MAILTOKEN=${{ secrets.MAILTOKEN }} \
-            -e EMAIL=${{ secrets.EMAIL }} \
-            -v /home/ubuntu/actions-runner/_work/shubnit12.github.io/shubnit12.github.io/private/personalwebsiteKeys.json:/app/private/personalwebsiteKeys.json \
-            shubnit12/personalwebsiternodejs:latest
+        with:
+          fetch-depth: 0
+
+
+      - name: generate tag
+        id: tag
+        run: echo "TAG=v$(git rev-list --count HEAD)" >> $GITHUB_OUTPUT
+
+      - name: create ZIP of static files
+        run: zip -r portfolio.zip index.html images/ public/ -x "*.git"
+
+      - name: Create Github Release and upload ZIP
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.TAG }}
+          name: Release ${{ steps.tag.outputs.TAG }}
+          files: portfolio.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
