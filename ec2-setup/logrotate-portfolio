@@ -1,0 +1,9 @@
+/home/ubuntu/portfolio/deploy.log {
+    su ubuntu ubuntu   
+    size 1M
+    rotate 1
+    copytruncate
+    compress
+    missingok
+    notifempty
+}
