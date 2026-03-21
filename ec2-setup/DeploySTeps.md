@@ -21,4 +21,7 @@ crontab -e
 
 */5 * * * * /home/ubuntu/portfolio/deploy.sh >> /home/ubuntu/portfolio/deploy.log 2>&1
 
+sudo apt install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d shubnit.com -d www.shubnit.com
+
 ~/portfolio/deploy.sh
