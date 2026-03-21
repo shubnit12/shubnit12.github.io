@@ -20,7 +20,8 @@ jobs:
         run: echo "TAG=v$(git rev-list --count HEAD)" >> $GITHUB_OUTPUT
 
       - name: create ZIP of static files
-        run: zip -r portfolio.zip images/ public/ -x "*.git*"
+        run: zip -r portfolio.zip images/ public/ ec2-setup/ -x "*.git*"
+
 
       - name: Create Github Release and upload ZIP
         uses: softprops/action-gh-release@v2
