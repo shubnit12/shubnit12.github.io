@@ -128,6 +128,8 @@ bash
 hash -r
 node --version
 
+sudo systemctl status nginx
+pm2 list
 
 sudo systemctl stop nginx
 sudo certbot certonly --standalone -d shubnit.com -d www.shubnit.com -d api.shubnit.com -d blog.shubnit.com
