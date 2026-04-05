@@ -401,7 +401,7 @@ footer {
 }
 .blogButton:hover{
   color: #ffbb00;
-  font-size: 15px;
+  font-size: 1.02em;
   font-weight: bold;
 }
 .blogButton:active, .liveButton:active {
