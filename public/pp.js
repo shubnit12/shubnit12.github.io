@@ -146,6 +146,52 @@ function percentageCalc() {
 }
 requestAnimationFrame(percentageCalc);
 
+
+let BlogUPCheckSpan = document.getElementById('BlogUPCheck')
+fetch('https://api.shubnit.com/testing',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  }).then((response)=>{
+
+    if(response.status==200){
+      
+      BlogUPCheckSpan.textContent = "Live 🟢"
+
+    }else{
+      
+      BlogUPCheckSpan.textContent = "Down 🔴"
+    }
+  }).catch((error)=>{
+    
+    BlogUPCheckSpan.textContent = "Down 🔴"
+
+  })
+
+  let driveUPCheckSpan = document.getElementById('DriveUpCheck')
+  fetch('http://localhost:3000/api/health',{
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((response)=>{
+
+    if(response.status==200){
+    
+      driveUPCheckSpan.textContent = "Live 🟢"
+
+    }else{
+    
+      driveUPCheckSpan.textContent = "Down 🔴"
+    }
+  }).catch((error)=>{
+    console.log(error.message)
+    driveUPCheckSpan.textContent = "Down 🔴"
+
+  })
+
+
 let Expressjs =
   "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Expressjs.png";
 let JavaScript =
