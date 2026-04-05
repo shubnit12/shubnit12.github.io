@@ -170,7 +170,7 @@ fetch('https://api.shubnit.com/testing',{
   })
 
   let driveUPCheckSpan = document.getElementById('DriveUpCheck')
-  fetch('http://localhost:3000/api/health',{
+  fetch('https://drive.shubnit.com/api/health',{
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
