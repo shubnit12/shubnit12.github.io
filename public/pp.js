@@ -176,38 +176,65 @@ let Windows =
   "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Windows.png";
 let Unix =
   "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/UNIX.png";
-
+let webpack = 
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/webpack.png";
+let docker = 
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Docker.png";
+let githubActions =
+ "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/GitHubActions.png";
+ let nginx =
+ "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/nginx.jpg";
+ let jest =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/jest.png";
+  let redis =
+  "https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/redis.png";
+  let postgresql =
+"https://raw.githubusercontent.com/shubnit12/shubnit12.github.io/refs/heads/main/images/Postgresql.png";
 let skillObj = [
   {
-    skillTitle: "Language,Framework and library",
+    skillTitle: "Frontend",
     skills: [
+      { skillName: "React.js", skillImage: React },
       { skillName: "JavaScript", skillImage: JavaScript },
-      { skillName: "ReactJs", skillImage: React },
-      { skillName: "NodeJs", skillImage: NodeJs },
+      { skillName: "TypeScript", skillImage: "" },
       { skillName: "HTML", skillImage: html },
       { skillName: "CSS", skillImage: css },
-      { skillName: "Expressjs", skillImage: Expressjs },
+      { skillName: "Webpack", skillImage: webpack },
     ],
   },
   {
-    skillTitle: "Tools & Technologies",
+    skillTitle: "Backend",
     skills: [
-      { skillName: "Jenkins", skillImage: Jenkins },
-      { skillName: "git", skillImage: git },
-      { skillName: "Playwright", skillImage: Playwright },
-      { skillName: "aws", skillImage: aws },
-      { skillName: "VSCode", skillImage: Visual_Studio },
+      { skillName: "", skillImage: NodeJs },
+      { skillName: "", skillImage: Expressjs },
+      { skillName: "REST APIs", skillImage: "" },
+    ],
+  },
+  {
+    skillTitle: "DevOps & Cloud",
+    skills: [
+      { skillName: "", skillImage: aws },
+      { skillName: "", skillImage: docker },
+      { skillName: "", skillImage: Jenkins },
+      { skillName: "Git Actions", skillImage: githubActions },
+      { skillName: "Nginx", skillImage: nginx },
+      { skillName: "", skillImage: git },
+    ],
+  },
+  {
+    skillTitle: "Testing",
+    skills: [
+      { skillName: "", skillImage: Playwright },
+      { skillName: "Cypress", skillImage: "" },
+      { skillName: "Jest", skillImage: jest },
     ],
   },
   {
     skillTitle: "Databases",
-    skills: [{ skillName: "MongoDB", skillImage: MongoDB }],
-  },
-  {
-    skillTitle: "Operating Systems",
     skills: [
-      { skillName: "Unix", skillImage: Unix },
-      { skillName: "Windows", skillImage: Windows },
+      { skillName: "PostgreSQL", skillImage: postgresql },
+      { skillName: "", skillImage: redis },
+      { skillName: "", skillImage: MongoDB },
     ],
   },
 ];
@@ -247,12 +274,14 @@ function createSkills() {
 
       let spanElement = document.createElement("span");
       spanElement.innerText = oneSkill.skillName;
-      let imgTag = document.createElement("img");
-      imgTag.src = oneSkill.skillImage;
-      imgTag.alt = oneSkill.skillName;
-      imgTag.style.height = "20px";
       individualSkillDiv.appendChild(spanElement);
-      individualSkillDiv.appendChild(imgTag);
+      if (oneSkill.skillImage) {
+        let imgTag = document.createElement("img");
+        imgTag.src = oneSkill.skillImage;
+        imgTag.alt = oneSkill.skillName;
+        imgTag.style.height = "20px";
+        individualSkillDiv.appendChild(imgTag);
+      }
       skillsDiv.appendChild(individualSkillDiv);
       // console.log(individualSkillDiv);
     });
