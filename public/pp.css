@@ -376,6 +376,21 @@ footer {
 .blogButton {
   background-color: #000000;
 }
+.liveButton{
+  color: #241ec3;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.liveButton:hover {
+  color: #ffbb00;
+  /* font-size: 15px; */
+  font-weight: bold;
+}
+.liveButton:visited {
+  color: #241ec3;
+}
 
 .blogButton {
   color: #eeeded;
@@ -384,12 +399,12 @@ footer {
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.blogButton:hover {
+.blogButton:hover{
   color: #ffbb00;
   font-size: 15px;
   font-weight: bold;
 }
-.blogButton:active {
+.blogButton:active, .liveButton:active {
   border-style: solid;
   border-top: #0048ff;
   border-right: #0048ff;
