@@ -412,10 +412,15 @@ footer {
   border-width: 3px;
 }
 #blink {
-  animation: blinker 2s ease infinite;
+  animation: breathe 5s ease-in-out infinite;
 }
-@keyframes blinker {
-  90% {
-    opacity: 40;
+@keyframes breathe {
+  20%, 80% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
