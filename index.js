@@ -164,9 +164,14 @@ app.get("/resume", (req, res) => {
       try {
         const arrayBuffer = await result.data.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
+          const now = new Date();
+          const day = now.getDate();
+          const month = now.toLocaleString("en-GB", { month: "long" });
+          const year = now.getFullYear();
+          const filename = `Shubnit_Resume_${day}_${month}_${year}.pdf`;
         res.set({
           "Content-Type": "application/pdf",
-          "Content-Disposition": "attachment; filename=ShubnitResume.pdf",
+          "Content-Disposition": `attachment; filename=${filename}`,
         });
         res.send(buffer);
         console.log("File saved successfully!");
